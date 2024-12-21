@@ -54,13 +54,19 @@
         class="text-white border-2 border-dotted mt-[10px] lg:grid grid-cols-4"
     >
         <div id="posts_table" class="p-3 md:px-[50px] flex flex-col gap-2 col-span-3">
-            <!--  -->
+            <!--  -->                        
         </div>
         <div class="w-full bg-black">
+            <!-- hitwebcounter Code START -->
+            <a href="https://www.hitwebcounter.com" target="_blank" class="flex justify-center">
+                <img class="" src="https://hitwebcounter.com/counter/counter.php?page=17981101&style=0009&nbdigits=4&type=page&initCount=0" title="Counter Widget" Alt="Visit counter For Websites"/>
+            </a>  
             <iframe src="https://h3.ishoutbox.com" class="w-full min-h-[700px]"></iframe>
         </div>  
+            
     </div>
-        
+                               
+                                                      
 </body>
 <script>
     const init = ()=>{
@@ -79,6 +85,10 @@
             </div>`
             table.appendChild(postDiv)
         })
+
+        console.log("fetching data");
+        
+        fetch("https://api.countapi.xyz/hit/doth3blog/hi").then((e)=>{console.log(e)}).catch((e)=>{console.log(e)}).finally(()=>{console.log("done")})
     }
     window.onload=init();
 </script>
