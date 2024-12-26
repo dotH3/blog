@@ -10,12 +10,15 @@
     <script>
         const posts = [
         {
-            conten:["Estas últimas semanas se imaginó una banda de rock con sus amigos, vio a su grupo dando mensajes de rebeldía. Nuevos acordes unidos por un propósito y por un símbolo que pueda dar un concepto de unión.",`¿Estamos viviendo la actualidad?`,`Las actualidades eran las de antes, las de ahora son historia, puros chamuyos que no enganchan. Lo actual es cosa del pasado, lo moderno ya tiene 50 años, los muchachos que trabajan y buscan lo puntero están tomando mates en la esquina “¡Me había ganado falta envido con treinta y tres!”. Todo lo nuevo ya pasó hace rato`],
+            content:[
+                `Estas últimas semanas se imaginó una banda de rock con sus amigos, vio a su grupo dando mensajes de rebeldía. Nuevos acordes unidos por un propósito y por un símbolo que pueda dar un concepto de unión.`,
+                `¿Estamos viviendo la actualidad?`,
+                `Las actualidades eran las de antes, las de ahora son historia, puros chamuyos que no enganchan. Lo actual es cosa del pasado, lo moderno ya tiene 50 años, los muchachos que trabajan y buscan lo puntero están tomando mates en la esquina “¡Me había ganado falta envido con treinta y tres!”. Todo lo nuevo ya pasó hace rato`],
             img:"src/assets/imgs/saurin_navidad.png",
             date:"16:27 25/12/24"
         },
         {
-            content:["The sun is the same in a relative way but you're older,","Shorter of breath and one day closer to death."],
+            content:["The sun is the same in a relative way but you're older, Shorter of breath and one day closer to death."],
             img:"src/assets/imgs/pff.jpeg",
             date:"07:17 21/12/24"
         },
@@ -63,9 +66,9 @@
         </div>
         <div class="w-full bg-black">
             <!-- hitwebcounter Code START -->
-            <a href="https://www.hitwebcounter.com" target="_blank" class="flex justify-center">
+            <!-- <a href="https://www.hitwebcounter.com" target="_blank" class="flex justify-center">
                 <img class="" src="https://hitwebcounter.com/counter/counter.php?page=17981101&style=0009&nbdigits=4&type=page&initCount=0" title="Counter Widget" Alt="Visit counter For Websites"/>
-            </a>  
+            </a>   -->
             <iframe src="https://h3.ishoutbox.com" class="w-full min-h-[700px]"></iframe>
         </div>  
             
@@ -80,20 +83,18 @@
         posts.map((post)=>{
             const postDiv = document.createElement('div');
             postDiv.innerHTML=`
-            <div class="overflow-hidden">
-                <img src="src/assets/gifs/h3.gif" class="float-left mr-4 w-[60px] h-[60px]" alt="Imagen">
+            <div class="overflow-hidden border-b-2 border-dashed border-red-500">
+                <img src="src/assets/gifs/h3.gif" class="hidden float-left mr-4 w-[60px] h-[60px]" alt="Imagen">
                 <div>
-                    <p>${post.content.join('<br>')}</p>
-                    ${post.img ? `<img class="mx-auto md:h-[400px]" src="${post.img}">`:``}
+                    <div class="bg-black">
+                        ${post.content.map((content)=>{return `<p class="indent-3">${content}</p>`}).join('')}
+                    </div>
+                    ${post.img ? `<img class="mx-auto md:h-[400px] m-3" src="${post.img}">`:``}
                     <p class="text-red-500 text-right">${post.date}</p>
                 </div>
             </div>`
             table.appendChild(postDiv)
         })
-
-        console.log("fetching data");
-        
-        fetch("https://api.countapi.xyz/hit/doth3blog/hi").then((e)=>{console.log(e)}).catch((e)=>{console.log(e)}).finally(()=>{console.log("done")})
     }
     window.onload=init();
 </script>
