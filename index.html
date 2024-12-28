@@ -9,6 +9,11 @@
 
     <script>
         const posts = [
+            {
+                content:['Alguien que me lleve a un recital de Luimi'],
+                video:"src/assets/videos/luismi.mp4",
+                date:"09:04 28/12/24"
+            },
         {
             content:[
                 `Estas últimas semanas se imaginó una banda de rock con sus amigos, vio a su grupo dando mensajes de rebeldía. Nuevos acordes unidos por un propósito y por un símbolo que pueda dar un concepto de unión.`,
@@ -94,6 +99,8 @@
                         ${post.content.map((content)=>{return `<p class="indent-3">${content}</p>`}).join('')}
                     </div>
                     ${post.img ? `<img class="mx-auto md:h-[400px] m-3" src="${post.img}">`:``}
+                    ${post.video ? `<video class="mx-auto md:h-[400px] m-3" controls><source src="${post.video}" type="video/mp4">Your browser does not support the video tag.</video>` : ``}
+                    
                     <p class="text-red-500 text-right">${post.date}</p>
                 </div>
             </div>`
