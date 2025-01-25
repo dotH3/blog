@@ -8,6 +8,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <script>
+        const config = {
+            videos:false,
+            imgs:false
+        }
         const posts = [
         {
             content:['Pensó que estaba tomando alguna bebida por tener sed. Cuando salió al patio en verdad solo fue a buscar la copa para tener algo en la mano, alguna excusa para ocultar sus ritmos nerviosos en sus cansadas manos','luego de ver sangre se preocupó por cosas pavas. tiene miedo de irse por sus raíces, pero, a la vez muchas de esas raíces están podridas o quizás simplemente no lo están aguantando','Si llegó hasta aquí, ¿de verdad existe una razón para volver?','Alguien sáquele esa piedra. Ya no puede más con ese calor que aún lo sigue, como torturándolo.'],
@@ -15,16 +19,19 @@
             date:'21:44 24/01/25'
         },
         {
+            hidden:true,
             content:['mejor_reproductor_de_la_galaxia.png'],
             img:'src/assets/imgs/mejor_reproductor_de_la_galaxia.png',
             date:'23:18 08/01/25'
         },
         {
+            hidden:true,
             content:['Gato con cara de boludo'],
             video:"src/assets/videos/pedro_cat.mp4",
             date:"09:09 30/12/24"
         },
         {
+            hidden:true,
             content:['Alguien que me lleve a un recital de Luimi'],
             video:"src/assets/videos/luismi.mp4",
             date:"09:04 28/12/24"
@@ -90,8 +97,8 @@
                 <img class="" src="https://hitwebcounter.com/counter/counter.php?page=17981101&style=0009&nbdigits=4&type=page&initCount=0" title="Counter Widget" Alt="Visit counter For Websites"/>
             </a>   -->
 
-            <a href="https://www.hitwebcounter.com" target="_blank">
-            <img src="https://hitwebcounter.com/counter/counter.php?page=18109239&style=0009&nbdigits=3&type=ip&initCount=0" title="Counter Widget" Alt="Visit counter For Websites"/></a>         
+            <!-- <a href="https://www.hitwebcounter.com" target="_blank">
+            <img src="https://hitwebcounter.com/counter/counter.php?page=18109239&style=0009&nbdigits=3&type=ip&initCount=0" title="Counter Widget" Alt="Visit counter For Websites"/></a>          -->
 
             <iframe src="https://h3.ishoutbox.com" class="w-full min-h-[700px]"></iframe>
         </div>  
@@ -113,13 +120,15 @@
                     <div class="bg-black">
                         ${post.content.map((content)=>{return `<p class="indent-3">${content}</p>`}).join('')}
                     </div>
-                    ${post.img ? `<img class="mx-auto md:h-[400px] m-3" src="${post.img}">`:``}
-                    ${post.video ? `<video class="mx-auto md:h-[400px] m-3" controls><source src="${post.video}" type="video/mp4">Your browser does not support the video tag.</video>` : ``}
+                    ${config.imgs && post.img ? `<img class="md:max-h-[300px] m-3" src="${post.img}">`:``}
+                    ${config.videos && post.video ? `<video class="md:max-h-[300px] m-3" controls><source src="${post.video}" type="video/mp4">Your browser does not support the video tag.</video>` : ``}
                     
                     <p class="text-red-500 text-right">${post.date}</p>
                 </div>
             </div>`
-            table.appendChild(postDiv)
+            if(!post.hidden){
+                table.appendChild(postDiv)
+            }
         })
     }
     window.onload=init();
