@@ -1,140 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>H3K</title>
-    <link href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAkCQkAPyQkAAAAJAAkLT8AJCQkAC0SEgA/Pz8AEhstADYbGwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACACEYMzMAAAIREQiERIAAAhEQhERESAAAIRGEd0AIAAAAEWcAcVcQERERZwB5BxABERZnAHkHEAIRFpJ3mWIQAClmlmmZlgAAAChEIplhAAAAGEiSlmEAAAEYiZZgAQAAFmmWYAAAAAAAAAAAAAAAAAAAAAAAAAD//wAAsA8AAIAHAACAAwAAwAMAAPABAAAAAQAAgAEAAIABAADAAwAA8AMAAPADAADgGwAAwH8AAP//AAD//wAA" rel="icon" type="image/x-icon">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>H3k</title>
+    <!-- <script src="src/tail.css"></script> -->
+    <link rel="stylesheet" href="src/95.css">
+</head>
 
-    <script>
-        const config = {
-            videos:false,
-            imgs:false
-        }
-        const posts = [
+<script>
+    const config = {
+        videos: true,
+        imgs: true
+    }
+    const posts = [
         {
-            content:['Estoy encerrado en estas 4 paredes como si fuera un extraño en este lugar. No siento calor ni en mi propio pueblo, no tengo idea de qué poronga estoy haciendo acá, tan lejos de donde soy oriundo.','Creo que estoy volviéndome un poquito loco, últimamente ya nada me llama, no la veo ni por un tubo. Me encuentro atrapado entre dos altos edificios de concreto, levanto mi cabeza para poder saber dónde estoy parado, pero lo único que logro ver son pájaros, son dos y en sus pechos puedo hasta notar sus pequeñas costillas. Se me hace algo raro verlos acá, ellos también están lejos de sus iguales, no son ni de la misma especie, pero se encontraron en este lugar tan acomodado.'],
-            date:'21:41 28/01/25'
+            content: ['Estoy encerrado en estas 4 paredes como si fuera un extraño en este lugar. No siento calor ni en mi propio pueblo, no tengo idea de qué poronga estoy haciendo acá, tan lejos de donde soy oriundo.', 'Creo que estoy volviéndome un poquito loco, últimamente ya nada me llama, no la veo ni por un tubo. Me encuentro atrapado entre dos altos edificios de concreto, levanto mi cabeza para poder saber dónde estoy parado, pero lo único que logro ver son pájaros, son dos y en sus pechos puedo hasta notar sus pequeñas costillas. Se me hace algo raro verlos acá, ellos también están lejos de sus iguales, no son ni de la misma especie, pero se encontraron en este lugar tan acomodado.'],
+            date: '21:41 28/01/25'
         },
         {
-            content:['Pensó que estaba tomando alguna bebida por tener sed. Cuando salió al patio en verdad solo fue a buscar la copa para tener algo en la mano, alguna excusa para ocultar sus ritmos nerviosos en sus cansadas manos','luego de ver sangre se preocupó por cosas pavas. tiene miedo de irse por sus raíces, pero, a la vez muchas de esas raíces están podridas o quizás simplemente no lo están aguantando','Si llegó hasta aquí, ¿de verdad existe una razón para volver?','Alguien sáquele esa piedra. Ya no puede más con ese calor que aún lo sigue, como torturándolo.'],
-            video:'src/assets/videos/lago.mp4',
-            date:'21:44 24/01/25'
+            content: ['Pensó que estaba tomando alguna bebida por tener sed. Cuando salió al patio en verdad solo fue a buscar la copa para tener algo en la mano, alguna excusa para ocultar sus ritmos nerviosos en sus cansadas manos', 'luego de ver sangre se preocupó por cosas pavas. tiene miedo de irse por sus raíces, pero, a la vez muchas de esas raíces están podridas o quizás simplemente no lo están aguantando', 'Si llegó hasta aquí, ¿de verdad existe una razón para volver?', 'Alguien sáquele esa piedra. Ya no puede más con ese calor que aún lo sigue, como torturándolo.'],
+            video: 'src/assets/videos/lago.mp4',
+            date: '21:44 24/01/25'
         },
         {
-            hidden:true,
-            content:['mejor_reproductor_de_la_galaxia.png'],
-            img:'src/assets/imgs/mejor_reproductor_de_la_galaxia.png',
-            date:'23:18 08/01/25'
+            hidden: true,
+            content: ['mejor_reproductor_de_la_galaxia.png'],
+            img: 'src/assets/imgs/mejor_reproductor_de_la_galaxia.png',
+            date: '23:18 08/01/25'
         },
         {
-            hidden:true,
-            content:['Gato con cara de boludo'],
-            video:"src/assets/videos/pedro_cat.mp4",
-            date:"09:09 30/12/24"
+            hidden: true,
+            content: ['Gato con cara de boludo'],
+            video: "src/assets/videos/pedro_cat.mp4",
+            date: "09:09 30/12/24"
         },
         {
-            hidden:true,
-            content:['Alguien que me lleve a un recital de Luimi'],
-            video:"src/assets/videos/luismi.mp4",
-            date:"09:04 28/12/24"
+            hidden: true,
+            content: ['Alguien que me lleve a un recital de Luimi'],
+            video: "src/assets/videos/luismi.mp4",
+            date: "09:04 28/12/24"
         },
         {
-            content:[
+            content: [
                 `Estas últimas semanas se imaginó una banda de rock con sus amigos, vio a su grupo dando mensajes de rebeldía. Nuevos acordes unidos por un propósito y por un símbolo que pueda dar un concepto de unión.`,
                 `¿Estamos viviendo la actualidad?`,
                 `Las actualidades eran las de antes, las de ahora son historia, puros chamuyos que no enganchan. Lo actual es cosa del pasado, lo moderno ya tiene 50 años, los muchachos que trabajan y buscan lo puntero están tomando mates en la esquina “¡Me había ganado falta envido con treinta y tres!”. Todo lo nuevo ya pasó hace rato`],
-            img:"src/assets/imgs/saurin_navidad.png",
-            date:"16:27 25/12/24"
+            img: "src/assets/imgs/saurin_navidad.png",
+            date: "16:27 25/12/24"
         },
         {
-            content:["The sun is the same in a relative way but you're older, Shorter of breath and one day closer to death."],
-            img:"src/assets/imgs/pff.jpeg",
-            date:"07:17 21/12/24"
+            content: ["The sun is the same in a relative way but you're older, Shorter of breath and one day closer to death."],
+            img: "src/assets/imgs/pff.jpeg",
+            date: "07:17 21/12/24"
         },
         {
-            content:["En esta fiesta parece no quedar nadie. Vemos al pobre hombre salir al jardín trasero con una cerveza en la mano, ver los globos que seguramente exploten por ese pequeño, pero fugaz rayo de sol que los azota. No ve a nadie bailando este tango que suena, como si alguien que no fuese él lo escuchase. ","Al parecer, lo único que se dignaron en dejarle son sus ropas (No necesitan taparse). Ya es la hora de volver.","Con sus últimos y ahora eternos pensamientos, se digna a entender que la deuda por su “libertad” ahora será pagada con desgaste y soledad. A lo lejos se escuchan caballos galopar como si no pesaran, y su ruido cada vez más cercano lo hace reflexionar e intentar obtener el perdón divino. Ya es tarde."],
-            date:"21:09 04/12/24"
+            content: ["En esta fiesta parece no quedar nadie. Vemos al pobre hombre salir al jardín trasero con una cerveza en la mano, ver los globos que seguramente exploten por ese pequeño, pero fugaz rayo de sol que los azota. No ve a nadie bailando este tango que suena, como si alguien que no fuese él lo escuchase. ", "Al parecer, lo único que se dignaron en dejarle son sus ropas (No necesitan taparse). Ya es la hora de volver.", "Con sus últimos y ahora eternos pensamientos, se digna a entender que la deuda por su “libertad” ahora será pagada con desgaste y soledad. A lo lejos se escuchan caballos galopar como si no pesaran, y su ruido cada vez más cercano lo hace reflexionar e intentar obtener el perdón divino. Ya es tarde."],
+            date: "21:09 04/12/24"
         },
         {
-            content:["hoy instalé ubuntu 19 en un dinosaurio"],
-            img:"src/assets/imgs/67e23f79-1d2d-4616-86c1-7172ae82b641.jfif",
-            date:"19:42 27/11/24"
+            content: ["hoy instalé ubuntu 19 en un dinosaurio"],
+            img: "src/assets/imgs/67e23f79-1d2d-4616-86c1-7172ae82b641.jfif",
+            date: "19:42 27/11/24"
         },
         {
-            content:[`Ser el músico más influyente no significa nada... es muy relativo. A nadie le puede molestar que digan eso, también yo pienso, bueno, demostrámelo... Cuando hay gente que de golpe tenía como un concepto así "Almendriano" y empezó con eso y ahora hace... (Spinetta realiza con sus manos un gesto de guitarra y emite la onomatopeya chicu chicu)... es una cumbia... no sé, mucho no me debe escuchar, aflojó un poquito su entereza, se garcó y empezó a hacer otras cosas que no tienen el mismo calibre y ni piensa ni remotamente parecido a aquel que lo influyó, en este caso yo. La verdad es que no se nota que haya sido el más influyente... no me molestaría ser el menos influyente, porque son cosas para dorar la píldora y ya el hombre ya está más tranquilo.`,`Tkm, Flaco`],
-            date:"10:41 26/11/24"
+            content: [`Ser el músico más influyente no significa nada... es muy relativo. A nadie le puede molestar que digan eso, también yo pienso, bueno, demostrámelo... Cuando hay gente que de golpe tenía como un concepto así "Almendriano" y empezó con eso y ahora hace... (Spinetta realiza con sus manos un gesto de guitarra y emite la onomatopeya chicu chicu)... es una cumbia... no sé, mucho no me debe escuchar, aflojó un poquito su entereza, se garcó y empezó a hacer otras cosas que no tienen el mismo calibre y ni piensa ni remotamente parecido a aquel que lo influyó, en este caso yo. La verdad es que no se nota que haya sido el más influyente... no me molestaría ser el menos influyente, porque son cosas para dorar la píldora y ya el hombre ya está más tranquilo.`, `Tkm, Flaco`],
+            date: "10:41 26/11/24"
         },
         {
-            content:[`Sus frágiles pies pisan con seguridad el verde y delicado pasto, el cual emana una extraña sensación fria. Este verde prado no tiene malezas ni insectos, parece estar completamente limpio, como si alguien se hubiera tomado el trabajo de hacer su camino y estadía mucho más llevadero.`],
-            date:"01:27 26/11/24"
+            content: [`Sus frágiles pies pisan con seguridad el verde y delicado pasto, el cual emana una extraña sensación fria. Este verde prado no tiene malezas ni insectos, parece estar completamente limpio, como si alguien se hubiera tomado el trabajo de hacer su camino y estadía mucho más llevadero.`],
+            date: "01:27 26/11/24"
         },
         {
-            content:[`estoy laburando, pelotudo`],
-            date:"00:00 20/11/24"
+            content: [`estoy laburando, pelotudo`],
+            date: "00:00 20/11/24"
         },
     ]
-    </script>
-   
-
-</head>
-<body class="font-serif p-3 md:p-8" background="src/assets/imgs/blueswrl.jpg">
-
-    <div class="flex justify-between items-center">
-        <img class="mx-auto" src="src/assets/gifs/cooltext470283533964338.gif" alt="" srcset="">
-        <a href="https://gifcities.org/">
-            <img src="src/assets/gifs/dollarspindownd.gif" alt="">
-        </a>
-    </div>
-
-    <div 
-        style="background-image: url(src/assets/gifs/sape);" 
-        class="text-white border-2 border-dotted mt-[10px] lg:grid grid-cols-4"
-    >
-        <div id="posts_table" class="p-3 md:px-[50px] flex flex-col gap-2 col-span-3">
-            <!--  -->                        
-        </div>
-        <div class="w-full bg-black">
-            <!-- hitwebcounter Code START -->
-            <!-- <a href="https://www.hitwebcounter.com" target="_blank" class="flex justify-center">
-                <img class="" src="https://hitwebcounter.com/counter/counter.php?page=17981101&style=0009&nbdigits=4&type=page&initCount=0" title="Counter Widget" Alt="Visit counter For Websites"/>
-            </a>   -->
-
-            <a href="https://www.hitwebcounter.com" target="_blank">
-            <img src="https://hitwebcounter.com/counter/counter.php?page=18109239&style=0009&nbdigits=3&type=ip&initCount=0" title="Counter Widget" Alt="Visit counter For Websites"/></a>         
-
-            <iframe src="https://h3.ishoutbox.com" class="w-full min-h-[700px]"></iframe>
-        </div>  
-            
-    </div>
-                               
-                                                      
-</body>
-<script>
-    const init = ()=>{
-        console.log("bienvenido a H3K");
-        const table = document.getElementById("posts_table");
-        posts.map((post)=>{
-            const postDiv = document.createElement('div');
-            postDiv.innerHTML=`
-            <div class="overflow-hidden border-b-2 border-dashed border-red-500">
-                <img src="src/assets/gifs/h3.gif" class="hidden float-left mr-4 w-[60px] h-[60px]" alt="Imagen">
-                <div>
-                    <div class="bg-black">
-                        ${post.content.map((content)=>{return `<p class="indent-3">${content}</p>`}).join('')}
-                    </div>
-                    ${config.imgs && post.img ? `<img class="md:max-h-[300px] m-3" src="${post.img}">`:``}
-                    ${config.videos && post.video ? `<video class="md:max-h-[300px] m-3" controls><source src="${post.video}" type="video/mp4">Your browser does not support the video tag.</video>` : ``}
-                    
-                    <p class="text-red-500 text-right">${post.date}</p>
-                </div>
-            </div>`
-            if(!post.hidden){
-                table.appendChild(postDiv)
-            }
-        })
-    }
-    window.onload=init();
 </script>
+
+<body style="background-image: url(src/assets/imgs/clouds.png);background-size: cover;">
+    <div id="content"></div>
+
+</body>
+
+<script>
+    const contentElement = document.getElementById("content")
+    posts.forEach(post => {
+        const postElement = document.createElement('div');
+        postElement.innerHTML = `<div class="window" style="width: 600px">
+            <div class="title-bar">
+                <div class="title-bar-text">${post.date}</div>
+                <div class="title-bar-controls">
+                </div>
+            </div>
+            <div class="window-body">
+                <ul class="tree-view">
+                    ${post.content.map((content) => `<p>${content}</p>`).join('')}
+                </ul>
+            </div>
+         </div>`
+         contentElement.appendChild(postElement)
+    })
+
+</script>
+
 </html>
