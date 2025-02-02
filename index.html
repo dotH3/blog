@@ -122,7 +122,7 @@
             <div class="window-body">
                 <ul id="${id}-text" class="tree-view">
                     ${post.content.map((content) => `<p>${content}</p>`).join('')}
-                    ${(post.video || post.img) && `<button id="${id}-media-button" onClick='showMedia(${id})'>show</button>` || ''}
+                    ${(post.video || post.img) && `<button id="${id}-media-button" onClick='showMedia(${id})'>${(post.video || post.img)}</button>` || ''}
                 </ul>
             </div>
          </div>`
