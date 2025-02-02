@@ -86,7 +86,32 @@
 
 <script>
     const contentElement = document.getElementById("content")
-    posts.forEach(post => {
+
+    const showMedia = (id)=>{
+        console.log(id);
+        const post = posts[id]
+        const container = document.getElementById(`${id}-text`)
+
+        let mediaElement
+
+        if(post.img){
+            mediaElement = document.createElement('img')
+            mediaElement.src = post.img
+        }
+
+        if(post.video){
+            mediaElement = document.createElement('video')
+            mediaElement.src = post.video
+            mediaElement.controls = true
+        }
+
+        mediaElement.style.width = '80%'
+        container.appendChild(mediaElement);
+        const containerbutton = document.getElementById(`${id}-media-button`)
+        containerbutton.style.display = 'none';
+    }
+
+    posts.forEach((post,id) => {
         const postElement = document.createElement('div');
         postElement.innerHTML = `<div class="window" style="width: 600px">
             <div class="title-bar">
@@ -95,8 +120,9 @@
                 </div>
             </div>
             <div class="window-body">
-                <ul class="tree-view">
+                <ul id="${id}-text" class="tree-view">
                     ${post.content.map((content) => `<p>${content}</p>`).join('')}
+                    ${(post.video || post.img) && `<button id="${id}-media-button" onClick='showMedia(${id})'>show</button>` || ''}
                 </ul>
             </div>
          </div>`
