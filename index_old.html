@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>H3k</title>
-    <script src="src/tail.css"></script>
+    <!-- <script src="src/tail.css"></script> -->
+    <link rel="stylesheet" href="src/95.css">
 </head>
 
 <script>
@@ -79,7 +80,8 @@
 </script>
 
 <body style="background-image: url(src/assets/imgs/clouds.png);background-size: cover;">
-    <div id="content" class="flex flex-col p-2 text-sm md:p-6 gap-3"></div>
+    <div id="content"></div>
+
 </body>
 
 <script>
@@ -103,8 +105,7 @@
             mediaElement.controls = true
         }
 
-        // mediaElement.style.width = '40%'
-        mediaElement.className = "md:w-1/3 "
+        mediaElement.style.width = '80%'
         container.appendChild(mediaElement);
         const containerbutton = document.getElementById(`${id}-media-button`)
         containerbutton.style.display = 'none';
@@ -112,16 +113,16 @@
 
     posts.forEach((post,id) => {
         const postElement = document.createElement('div');
-        postElement.innerHTML = `<div class="font-mono">
+        postElement.innerHTML = `<div class="window" style="width: 600px">
             <div class="title-bar">
                 <div class="title-bar-text">${post.date}</div>
                 <div class="title-bar-controls">
                 </div>
             </div>
-            <div class="">
-                <ul id="${id}-text" class="indent-3 text-pretty">
-                    ${post.content.map((content) => `<p class="">${content}</p>`).join('')}
-                    ${(post.video || post.img) && `<button class="text-blue-800 hover:text-blue-600" id="${id}-media-button" onClick='showMedia(${id})'>${(post.video || post.img)}</button>` || ''}
+            <div class="window-body">
+                <ul id="${id}-text" class="tree-view">
+                    ${post.content.map((content) => `<p>${content}</p>`).join('')}
+                    ${(post.video || post.img) && `<button id="${id}-media-button" onClick='showMedia(${id})'>${(post.video || post.img)}</button>` || ''}
                 </ul>
             </div>
          </div>`
