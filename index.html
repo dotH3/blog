@@ -15,12 +15,12 @@
     }
     const posts = [
         {
-      content:['no sé si estoy para esta, mepa que me bajo'],
-      date:'00:39 15/03/2025'
-        }
+            content: ['no sé si estoy para esta, mepa que me bajo'],
+            date: '00:39 15/03/2025'
+        },
         {
-            content:['código fuente de Floyd https://github.com/dotH3/ping_floyd'],
-            date:'18:03 04/03/25'
+            content: ['código fuente de Floyd https://github.com/dotH3/ping_floyd'],
+            date: '18:03 04/03/25'
         },
         {
             content: ['Estoy encerrado en estas 4 paredes como si fuera un extraño en este lugar. No siento calor ni en mi propio pueblo, no tengo idea de qué poronga estoy haciendo acá, tan lejos de donde soy oriundo.', 'Creo que estoy volviéndome un poquito loco, últimamente ya nada me llama, no la veo ni por un tubo. Me encuentro atrapado entre dos altos edificios de concreto, levanto mi cabeza para poder saber dónde estoy parado, pero lo único que logro ver son pájaros, son dos y en sus pechos puedo hasta notar sus pequeñas costillas. Se me hace algo raro verlos acá, ellos también están lejos de sus iguales, no son ni de la misma especie, pero se encontraron en este lugar tan acomodado.'],
@@ -93,19 +93,19 @@
 <script>
     const contentElement = document.getElementById("content")
 
-    const showMedia = (id)=>{
+    const showMedia = (id) => {
         console.log(id);
         const post = posts[id]
         const container = document.getElementById(`${id}-text`)
 
         let mediaElement
 
-        if(post.img){
+        if (post.img) {
             mediaElement = document.createElement('img')
             mediaElement.src = post.img
         }
 
-        if(post.video){
+        if (post.video) {
             mediaElement = document.createElement('video')
             mediaElement.src = post.video
             mediaElement.controls = true
@@ -118,22 +118,22 @@
         containerbutton.style.display = 'none';
     }
 
-    posts.forEach((post,id) => {
+    posts.forEach((post, id) => {
         const postElement = document.createElement('div');
         postElement.innerHTML = `<div class="font-mono">
             <div class="title-bar">
-                <div class="title-bar-text">${post.date}</div>
+                <div class="title-bar-text ">${post.date}</div>
                 <div class="title-bar-controls">
                 </div>
             </div>
-            <div class="">
-                <ul id="${id}-text" class="indent-3 text-pretty">
+            <div class="bg-gray-900/25">
+                <ul id="${id}-text" class="indent-3 text-pretty text-white">
                     ${post.content.map((content) => `<p class="">${content}</p>`).join('')}
-                    ${(post.video || post.img) && `<button class="text-blue-800 hover:text-blue-600" id="${id}-media-button" onClick='showMedia(${id})'>${(post.video || post.img)}</button>` || ''}
+                    ${(post.video || post.img) && `<button class="text-pretty text-blue-800 hover:text-blue-600" id="${id}-media-button" onClick='showMedia(${id})'>${(post.video || post.img)}</button>` || ''}
                 </ul>
             </div>
          </div>`
-         contentElement.appendChild(postElement)
+        contentElement.appendChild(postElement)
     })
 
 </script>
