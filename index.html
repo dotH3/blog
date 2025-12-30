@@ -171,7 +171,7 @@
         const postElement = document.createElement('div');
         postElement.innerHTML = `<div class="">
             <p class="title-bar-text ">${post.date}</p>
-            <div class="bg-gray-900/25 py-2 px-4">
+            <div class="bg-gray-900/25 py-2 px-4 border-[6px] border-t-white/10 border-r-white/10 border-b-black/10 border-l-black/10">
                 <ul id="${id}-text" class="indent-2 text-pretty text-white font-serif">
                     ${post.content.map((content) => `<p class="mb-2">${content}</p>`).join('')}
                     ${(post.video || post.img) && `<button class="text-pretty text-blue-800 hover:text-blue-600" id="${id}-media-button" onClick='showMedia(${id})'>${(post.video || post.img)}</button>` || ''}
