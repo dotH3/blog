@@ -1,19 +1,21 @@
-// Import the framework and instantiate it
 import Fastify from 'fastify'
+import postPlugin from './plugins/post.plugin'
+import { readFile } from 'fs/promises'
 
 const fastify = Fastify({
   logger: false
 })
 await fastify.register(import('@fastify/rate-limit'), {
-  max: 25,
+  max: 100,
   timeWindow: '1 minute',
 })
 
-// Declare a route
 fastify.get('/hello', async function handler(req, rep) {
-  console.log(req.id, req.ip)
-  return `Hello, ${req.ip}!`
+  const html = await readFile(new URL('./public/index.html', import.meta.url), 'utf8')
+  return rep.type('text/html').send(html)
 })
+
+await fastify.register(postPlugin, { prefix: '/posts' })
 
 // Run the server!
 try {
