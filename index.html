@@ -15,13 +15,18 @@
     }
     const posts = [
         {
-            content:['jodidamente tierno'],
-            img: 'src/assets/imgs/20260302_015614.jpg',
-            date:'01:59 02/03/26'
+            content: ['Ahora que estoy acá ya no necesito más este par de papeles, digo ¿para qué? son pensamientos llenos de polvo que nadie va a leer nunca. Por esto mismo quiero hacerlos públicos. Si en algún momento de locura los hago arder, así ninguno saldría saltando.', 'Adjunto estas boletas llenas de pavadas.'],
+            pdf: 'src/assets/pdfs/papeles_20260322.pdf',
+            date: '16:39 22/03/26',
         },
         {
-            content:['¿De qué puedo escribir? Desde que me mudé quiero retomar actividades o hábitos que tengo juntando polvo, uno de esos hábitos es escribir. Quizás podría empezar transcribiendo mis papeles escondidos en las páginas de los libros que me robé de la escuela secundaria.', 'Tocando otro tema, siento que debería alejarme aunque sea un poco de las pantallas y hacer cosas un poco más tangibles, crear algo físico, desde que conseguí un poco de plata gracias a mi hobby principal mi creatividad se vio capturada por lo digital.', '¿Aún tengo ganas de seguir jugando con código? Con toda sinceridad o desconocimiento puedo decir que ni siquiera yo lo sé, asumo que sí aun sabiendo que todavía no lo hablé conmigo mismo. Supongo que todo esto es cosa pendiente.'],
-            date:'00:00 19/02/26'
+            content: ['jodidamente tierno'],
+            img: 'src/assets/imgs/20260302_015614.jpg',
+            date: '01:59 02/03/26'
+        },
+        {
+            content: ['¿De qué puedo escribir? Desde que me mudé quiero retomar actividades o hábitos que tengo juntando polvo, uno de esos hábitos es escribir. Quizás podría empezar transcribiendo mis papeles escondidos en las páginas de los libros que me robé de la escuela secundaria.', 'Tocando otro tema, siento que debería alejarme aunque sea un poco de las pantallas y hacer cosas un poco más tangibles, crear algo físico, desde que conseguí un poco de plata gracias a mi hobby principal mi creatividad se vio capturada por lo digital.', '¿Aún tengo ganas de seguir jugando con código? Con toda sinceridad o desconocimiento puedo decir que ni siquiera yo lo sé, asumo que sí aun sabiendo que todavía no lo hablé conmigo mismo. Supongo que todo esto es cosa pendiente.'],
+            date: '00:00 19/02/26'
         },
         {
             content: ['Podemos hablar de lo copado que es Omarchy?'],
@@ -33,9 +38,9 @@
             date: '23:06 13/02/26'
         },
         {
-            content:['soy grande miren'],
+            content: ['soy grande miren'],
             date: '22:00 05/02/26',
-            video:'src/assets/videos/2026-02-05_compressed.mp4',
+            video: 'src/assets/videos/2026-02-05_compressed.mp4',
         },
         {
             content: ['Todos podemos llegar a ser artistas, hasta que tenemos que pagar el alquiler.'],
@@ -47,9 +52,9 @@
 
         },
         {
-            content:[`es la primera vez que publico uno de mis apuntes en video. intento n4 de grabar esto`],
-            video:'src/assets/videos/2026_01_03.mp4',
-            date:'23:59 03/01/26'
+            content: [`es la primera vez que publico uno de mis apuntes en video. intento n4 de grabar esto`],
+            video: 'src/assets/videos/2026_01_03.mp4',
+            date: '23:59 03/01/26'
         },
         {
             content: [`Ya le estoy agarrando la mano al 2024`],
@@ -196,6 +201,12 @@
             mediaElement.controls = true
         }
 
+        if (post.pdf) {
+            mediaElement = document.createElement('iframe')
+            mediaElement.src = post.pdf + '#toolbar=0&navpanes=0&scrollbar=0'
+            mediaElement.style.height = '500px'
+        }
+
         // mediaElement.style.width = '40%'
         mediaElement.className = "md:w-2/3 "
         container.appendChild(mediaElement);
@@ -210,7 +221,7 @@
             <div class="bg-gray-900/25 py-2 px-4 border-[6px] border-t-white/10 border-r-white/10 border-b-black/10 border-l-black/10">
                 <ul id="${id}-text" class="indent-2 text-pretty text-white font-serif">
                     ${post.content.map((content) => `<p class="mb-2">${content}</p>`).join('')}
-                    ${(post.video || post.img) && `<button class="text-pretty text-blue-800 hover:text-blue-600" id="${id}-media-button" onClick='showMedia(${id})'>${(post.video || post.img)}</button>` || ''}
+                    ${(post.video || post.img || post.pdf) && `<button class="text-pretty text-blue-800 hover:text-blue-600" id="${id}-media-button" onClick='showMedia(${id})'>${(post.video || post.img || post.pdf)}</button>` || ''}
                 </ul>
             </div>
          </div>`
