@@ -5,7 +5,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>H3k</title>
-    <script src="src/tail.css"></script>
+    <style>
+        body {
+            background: #f5f0e8;
+            color: #222;
+            font-family: Georgia, serif;
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .post {
+            border-bottom: 1px solid #bbb;
+            padding: 12px 0;
+        }
+
+        .date {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 6px;
+        }
+
+        p {
+            margin: 0 0 6px 0;
+            line-height: 1.6;
+        }
+
+        video,
+        img {
+            max-width: 100%;
+            margin-top: 8px;
+            display: block;
+        }
+
+        iframe {
+            width: 100%;
+            height: 500px;
+            margin-top: 8px;
+            border: 1px solid #bbb;
+        }
+
+        footer {
+            font-size: 11px;
+            color: #aaa;
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
 </head>
 
 <script>
@@ -14,6 +61,10 @@
         imgs: true
     }
     const posts = [
+        {
+            content: [`Lloroso y malherido, tumbado, a pasos de su dormitorio se encontraba. Con una cáscara quebrada y un interior podridamente apestado, su mente lo aquejaba –¡No tengo dónde ir, no tengo dónde postrar mi carne!– Como habitando espacios menores a cero.`],
+            date: '00:00 06/06/26',
+        },
         {
             content: ['Quiero leerme la Biblioteca de Babel una y otra vez.', 'Lo repito: basta que un libro sea posible para que exista. Solo está excluido lo imposible.'],
             date: '00:00 21/04/26',
@@ -36,11 +87,6 @@
         {
             content: ['¿De qué puedo escribir? Desde que me mudé quiero retomar actividades o hábitos que tengo juntando polvo, uno de esos hábitos es escribir. Quizás podría empezar transcribiendo mis papeles escondidos en las páginas de los libros que me robé de la escuela secundaria.', 'Tocando otro tema, siento que debería alejarme aunque sea un poco de las pantallas y hacer cosas un poco más tangibles, crear algo físico, desde que conseguí un poco de plata gracias a mi hobby principal mi creatividad se vio capturada por lo digital.', '¿Aún tengo ganas de seguir jugando con código? Con toda sinceridad o desconocimiento puedo decir que ni siquiera yo lo sé, asumo que sí aun sabiendo que todavía no lo hablé conmigo mismo. Supongo que todo esto es cosa pendiente.'],
             date: '00:00 19/02/26'
-        },
-        {
-            content: ['Podemos hablar de lo copado que es Omarchy?'],
-            date: '14:33 14/02/26',
-            img: 'src/assets/imgs/omarchy.jpeg'
         },
         {
             content: ['Han visto un loco en una calesita', 'Casi desnudo y con la vista enferma', 'Y daba vueltas y se sonreia', 'Y silbaba bajo por no molestar', 'Y Dios es una máquina de humo', 'Dicen que un ángel lo atrapó en el baño', 'Lo crusificó y le sacó los ojos', 'Y con su sangre se pinto los labios', 'Y cortó sus piernas y se las comió', 'Y Dios es una máquina de humo', 'Y Dios es una máquina!'],
@@ -179,64 +225,26 @@
     ]
 </script>
 
-<body style="background-image: url(src/assets/imgs/clouds.png);background-size: cover;"
-    class="flex flex-col items-center">
-    <div id="content" class="w-[95%] md:w-3/5 flex flex-col gap-2"></div>
-    <footer>
-        <div class="text-center text-white font-serif mb-4">
-            ahora que leiste todo esto, se siente un poco raro, no? ojala que no me conozcas en persona jaja
-        </div>
-    </footer>
+<body>
+    <div id="content"></div>
+    <footer>ahora que leiste todo esto, se siente un poco raro, no? ojala que no me conozcas en persona jaja</footer>
 </body>
 
 <script>
     const contentElement = document.getElementById("content")
 
-    const showMedia = (id) => {
-        console.log(id);
-        const post = posts[id]
-        const container = document.getElementById(`${id}-text`)
-
-        let mediaElement
-
-        if (post.img) {
-            mediaElement = document.createElement('img')
-            mediaElement.src = post.img
-        }
-
-        if (post.video) {
-            mediaElement = document.createElement('video')
-            mediaElement.src = post.video
-            mediaElement.controls = true
-        }
-
-        if (post.pdf) {
-            mediaElement = document.createElement('iframe')
-            mediaElement.src = post.pdf + '#toolbar=0&navpanes=0&scrollbar=0'
-            mediaElement.style.height = '500px'
-        }
-
-        // mediaElement.style.width = '40%'
-        mediaElement.className = "md:w-2/3 "
-        container.appendChild(mediaElement);
-        const containerbutton = document.getElementById(`${id}-media-button`)
-        containerbutton.style.display = 'none';
-    }
-
     posts.forEach((post, id) => {
         const postElement = document.createElement('div');
-        postElement.innerHTML = `<div class="">
-            <p class="title-bar-text ">${post.date}</p>
-            <div class="bg-gray-900/25 py-2 px-4 border-[6px] border-t-white/10 border-r-white/10 border-b-black/10 border-l-black/10">
-                <ul id="${id}-text" class="indent-2 text-pretty text-white font-serif">
-                    ${post.content.map((content) => `<p class="mb-2">${content}</p>`).join('')}
-                    ${(post.video || post.img || post.pdf) && `<button class="text-pretty text-blue-800 hover:text-blue-600" id="${id}-media-button" onClick='showMedia(${id})'>${(post.video || post.img || post.pdf)}</button>` || ''}
-                </ul>
-            </div>
-         </div>`
+        postElement.className = 'post';
+        postElement.innerHTML = `
+            <div class="date">${post.date}</div>
+            ${post.content.map(c => `<p>${c}</p>`).join('')}
+            ${post.video ? `<video src="${post.video}" controls></video>` : ''}
+            ${post.img ? `<img src="${post.img}" />` : ''}
+            ${post.pdf ? `<a href="${post.pdf}" download>${post.pdf}</a>` : ''}
+        `
         contentElement.appendChild(postElement)
     })
-
 </script>
 
 </html>
