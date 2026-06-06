@@ -148,13 +148,19 @@
             word-break: break-word;
         }
 
-        /* En pantallas angostas no hay lugar al costado: lo mandamos abajo */
+        /* En pantallas angostas no hay lugar al costado: lo mandamos arriba de los posts */
         @media (max-width: 1100px) {
+            body {
+                display: flex;
+                flex-direction: column;
+            }
+
             #comments-aside {
                 position: static;
                 width: auto;
                 max-height: none;
-                margin: 30px 0;
+                margin: 0 0 30px 0;
+                order: -1;
             }
 
             #comment-list {
