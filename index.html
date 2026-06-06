@@ -52,6 +52,115 @@
             text-align: center;
             margin-top: 30px;
         }
+
+        /* ---- Seccion lateral de comentarios ---- */
+        #comments-aside {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 280px;
+            max-height: calc(100vh - 40px);
+            display: flex;
+            flex-direction: column;
+            background: #efe8dc;
+            border: 1px solid #bbb;
+            padding: 14px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        #comments-aside h2 {
+            font-size: 15px;
+            margin: 0 0 10px 0;
+            font-weight: normal;
+            color: #555;
+        }
+
+        #comment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        #comment-form input,
+        #comment-form textarea {
+            font-family: Georgia, serif;
+            font-size: 13px;
+            padding: 6px;
+            border: 1px solid #bbb;
+            background: #f5f0e8;
+            box-sizing: border-box;
+        }
+
+        #comment-form textarea {
+            resize: vertical;
+            min-height: 50px;
+        }
+
+        #comment-form button {
+            font-family: Georgia, serif;
+            font-size: 13px;
+            padding: 6px;
+            border: 1px solid #999;
+            background: #e2d9c8;
+            cursor: pointer;
+        }
+
+        #comment-form button:disabled {
+            opacity: 0.5;
+            cursor: default;
+        }
+
+        #comment-status {
+            font-size: 12px;
+            color: #888;
+            min-height: 14px;
+        }
+
+        #comment-list {
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .comment {
+            border-top: 1px solid #ccc;
+            padding-top: 8px;
+        }
+
+        .comment .c-author {
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .comment .c-date {
+            font-size: 11px;
+            color: #999;
+            margin-left: 6px;
+        }
+
+        .comment .c-message {
+            margin: 4px 0 0 0;
+            line-height: 1.45;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        /* En pantallas angostas no hay lugar al costado: lo mandamos abajo */
+        @media (max-width: 1100px) {
+            #comments-aside {
+                position: static;
+                width: auto;
+                max-height: none;
+                margin: 30px 0;
+            }
+
+            #comment-list {
+                max-height: 400px;
+            }
+        }
     </style>
 </head>
 
@@ -228,6 +337,16 @@
 <body>
     <div id="content"></div>
     <footer>ahora que leiste todo esto, se siente un poco raro, no? ojala que no me conozcas en persona jaja</footer>
+
+    <aside id="comments-aside">
+        <form id="comment-form" autocomplete="off">
+            <input id="c-username" type="text" placeholder="tu nombre" maxlength="32" required />
+            <textarea id="c-message" placeholder="dejá algo..." maxlength="250" required></textarea>
+            <button type="submit">enviar</button>
+        </form>
+        <div id="comment-status"></div>
+        <div id="comment-list"></div>
+    </aside>
 </body>
 
 <script>
@@ -245,6 +364,114 @@
         `
         contentElement.appendChild(postElement)
     })
+</script>
+
+<script>
+    // ---- Comentarios desde la API ----
+    const API_URL = "https://blog-api.joaquinbastias321.workers.dev/comments";
+
+    const listEl = document.getElementById("comment-list");
+    const statusEl = document.getElementById("comment-status");
+    const formEl = document.getElementById("comment-form");
+    const usernameEl = document.getElementById("c-username");
+    const messageEl = document.getElementById("c-message");
+
+    // Formatea created_at (viene como "YYYY-MM-DD HH:MM:SS" en UTC desde D1).
+    function formatDate(raw) {
+        if (!raw) return "";
+        const d = new Date(raw.replace(" ", "T") + "Z");
+        if (isNaN(d)) return raw;
+        return d.toLocaleString("es-AR", {
+            day: "2-digit", month: "2-digit", year: "2-digit",
+            hour: "2-digit", minute: "2-digit"
+        });
+    }
+
+    // Render seguro: usamos textContent (NO innerHTML) porque el contenido
+    // viene de usuarios desconocidos -> evita XSS almacenado.
+    function renderComments(comments) {
+        listEl.textContent = "";
+        if (!comments.length) {
+            const empty = document.createElement("div");
+            empty.className = "c-date";
+            empty.textContent = "sé el primero en comentar";
+            listEl.appendChild(empty);
+            return;
+        }
+        for (const c of comments) {
+            const item = document.createElement("div");
+            item.className = "comment";
+
+            const head = document.createElement("div");
+            const author = document.createElement("span");
+            author.className = "c-author";
+            author.textContent = c.username;
+            const date = document.createElement("span");
+            date.className = "c-date";
+            date.textContent = formatDate(c.created_at);
+            head.appendChild(author);
+            head.appendChild(date);
+
+            const msg = document.createElement("p");
+            msg.className = "c-message";
+            msg.textContent = c.message;
+
+            item.appendChild(head);
+            item.appendChild(msg);
+            listEl.appendChild(item);
+        }
+    }
+
+    async function loadComments() {
+        try {
+            const res = await fetch(API_URL);
+            if (!res.ok) throw new Error("status " + res.status);
+            const data = await res.json();
+            renderComments(data.comments || []);
+        } catch (err) {
+            statusEl.textContent = "no se pudieron cargar los comentarios";
+        }
+    }
+
+    formEl.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const username = usernameEl.value.trim();
+        const message = messageEl.value.trim();
+        if (!username || !message) return;
+
+        const btn = formEl.querySelector("button");
+        btn.disabled = true;
+        statusEl.textContent = "enviando...";
+
+        try {
+            const res = await fetch(API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, message })
+            });
+
+            if (res.status === 429) {
+                statusEl.textContent = "tranqui, esperá un toque antes de volver a comentar";
+                return;
+            }
+            if (!res.ok) {
+                const data = await res.json().catch(() => ({}));
+                statusEl.textContent = data.error || "algo salió mal";
+                return;
+            }
+
+            messageEl.value = "";
+            statusEl.textContent = "¡gracias!";
+            await loadComments();
+        } catch (err) {
+            statusEl.textContent = "no se pudo enviar";
+        } finally {
+            btn.disabled = false;
+        }
+    });
+
+    loadComments();
+</script>
 </script>
 
 </html>
