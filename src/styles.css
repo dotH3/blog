@@ -161,8 +161,8 @@ footer {
     margin-top: 30px;
 }
 
-/* ---- Seccion lateral de comentarios ---- */
-#comments-aside {
+/* ---- Barra lateral fija: contiene el mini reproductor y los comentarios ---- */
+#sidebar {
     position: fixed;
     top: 20px;
     right: 20px;
@@ -170,11 +170,52 @@ footer {
     max-height: calc(100vh - 40px);
     display: flex;
     flex-direction: column;
+    gap: 12px;
+    box-sizing: border-box;
+}
+
+/* ---- Seccion lateral de comentarios ---- */
+#comments-aside {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
     background: #efe8dc;
     border: 1px solid #bbb;
     padding: 14px;
     font-size: 14px;
     box-sizing: border-box;
+}
+
+/* ---- Mini reproductor que sigue sonando, en su propia tarjeta ---- */
+/* Reutiliza los estilos de .audio-player; solo agrega el titulo y la tarjeta. */
+#mini-player {
+    flex: 0 0 auto;
+    background: #efe8dc;
+    border: 1px solid #bbb;
+    padding: 12px 14px;
+    box-sizing: border-box;
+}
+
+#mini-player[hidden] {
+    display: none;
+}
+
+#mini-player .mp-title {
+    font-size: 11px;
+    color: #777;
+    margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Dentro de la tarjeta, el player es solo la fila de controles (sin su propio recuadro). */
+#mini-player .audio-player {
+    margin-top: 0;
+    background: none;
+    border: none;
+    padding: 0;
 }
 
 #comments-aside h2 {
@@ -227,6 +268,8 @@ footer {
 }
 
 #comment-list {
+    flex: 1 1 auto;
+    min-height: 0;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -263,7 +306,7 @@ footer {
         flex-direction: column;
     }
 
-    #comments-aside {
+    #sidebar {
         position: static;
         width: auto;
         max-height: none;

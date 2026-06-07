@@ -19,6 +19,16 @@
     <div id="content"></div>
     <footer>ahora que leiste todo esto, se siente un poco raro, no? ojala que no me conozcas en persona jaja</footer>
 
+    <div id="sidebar">
+    <div id="mini-player" hidden>
+        <div class="mp-title"></div>
+        <div class="audio-player">
+            <button class="ap-play" aria-label="reproducir">►</button>
+            <svg class="ap-bar"><path class="ap-track"></path><path class="ap-fill"></path></svg>
+            <span class="ap-time">0:00</span>
+        </div>
+    </div>
+
     <aside id="comments-aside">
         <form id="comment-form" autocomplete="off">
             <input id="c-username" type="text" placeholder="tu nombre" maxlength="32" required />
@@ -28,6 +38,7 @@
         <div id="comment-status"></div>
         <div id="comment-list"></div>
     </aside>
+    </div>
 </body>
 
 <script>
@@ -46,7 +57,7 @@
                     ${post.video ? `<video src="${post.video}" controls></video>` : ''}
                     ${post.audio ? `
                     <div class="audio-player">
-                        <audio src="${post.audio}" preload="metadata"></audio>
+                        <audio src="${post.audio}" preload="metadata" data-title="${post.date}"></audio>
                         <button class="ap-play" aria-label="reproducir">►</button>
                         <svg class="ap-bar"><path class="ap-track"></path><path class="ap-fill"></path></svg>
                         <span class="ap-time">0:00</span>
@@ -82,6 +93,71 @@
     };
 
     function initAudioPlayers() {
+    // ---- Mini reproductor persistente (arriba de los comentarios) ----
+    const mini = {
+        el: document.getElementById("mini-player"),
+        play: document.querySelector("#mini-player .ap-play"),
+        title: document.querySelector("#mini-player .mp-title"),
+        bar: document.querySelector("#mini-player .ap-bar"),
+        track: document.querySelector("#mini-player .ap-track"),
+        fill: document.querySelector("#mini-player .ap-fill"),
+        time: document.querySelector("#mini-player .ap-time"),
+        current: null,
+        pathLen: 0,
+    };
+
+    // Dibuja la víbora del mini reproductor segun su ancho (igual que en el post).
+    const drawMiniWave = () => {
+        const w = mini.bar.getBoundingClientRect().width;
+        if (!w) return;
+        const d = buildWave(w);
+        mini.track.setAttribute("d", d);
+        mini.fill.setAttribute("d", d);
+        mini.pathLen = mini.fill.getTotalLength();
+        mini.fill.style.strokeDasharray = mini.pathLen;
+        renderMini();
+    };
+
+    const renderMini = () => {
+        const a = mini.current;
+        if (!a) return;
+        const ratio = a.duration ? a.currentTime / a.duration : 0;
+        mini.fill.style.strokeDashoffset = mini.pathLen * (1 - ratio);
+        mini.time.textContent = fmtTime((a.duration || 0) - a.currentTime);
+        mini.play.textContent = a.paused ? "►" : "❚❚";
+    };
+
+    const showMini = (audio) => {
+        mini.current = audio;
+        mini.title.textContent = "♪ " + (audio.dataset.title || "");
+        mini.el.hidden = false;
+        drawMiniWave();
+    };
+
+    window.addEventListener("resize", () => { if (!mini.el.hidden) drawMiniWave(); });
+
+    const hideMini = (audio) => {
+        if (mini.current !== audio) return;
+        mini.el.hidden = true;
+        mini.current = null;
+    };
+
+    mini.play.addEventListener("click", () => {
+        if (!mini.current) return;
+        if (mini.current.paused) mini.current.play();
+        else mini.current.pause();
+    });
+
+    mini.bar.addEventListener("click", (e) => {
+        const a = mini.current;
+        if (!a || !isFinite(a.duration)) return;
+        const rect = mini.bar.getBoundingClientRect();
+        const ratio = Math.min(Math.max((e.clientX - rect.left) / rect.width, 0), 1);
+        a.currentTime = ratio * a.duration;
+    });
+
+    const allAudios = [...document.querySelectorAll(".audio-player audio")];
+
     document.querySelectorAll(".audio-player").forEach((player) => {
         const audio = player.querySelector("audio");
         const playBtn = player.querySelector(".ap-play");
@@ -102,6 +178,7 @@
         // depender de timeupdate (que dispara ~4 veces por segundo y se ve a saltos).
         const tick = () => {
             updateProgress();
+            if (mini.current === audio) renderMini();
             rafId = requestAnimationFrame(tick);
         };
         const startTick = () => { if (rafId == null) rafId = requestAnimationFrame(tick); };
@@ -127,9 +204,15 @@
             else audio.pause();
         });
 
-        audio.addEventListener("play", () => { playBtn.textContent = "❚❚"; startTick(); });
-        audio.addEventListener("pause", () => { playBtn.textContent = "►"; stopTick(); });
-        audio.addEventListener("ended", () => { playBtn.textContent = "►"; stopTick(); });
+        audio.addEventListener("play", () => {
+            playBtn.textContent = "❚❚";
+            startTick();
+            // Pausa cualquier otro audio: suena uno a la vez.
+            allAudios.forEach((other) => { if (other !== audio) other.pause(); });
+            showMini(audio);
+        });
+        audio.addEventListener("pause", () => { playBtn.textContent = "►"; stopTick(); renderMini(); });
+        audio.addEventListener("ended", () => { playBtn.textContent = "►"; stopTick(); hideMini(audio); });
 
         audio.addEventListener("loadedmetadata", () => {
             time.textContent = fmtTime(audio.duration);
@@ -137,9 +220,13 @@
 
         audio.addEventListener("timeupdate", () => {
             time.textContent = fmtTime(audio.duration - audio.currentTime);
+            if (mini.current === audio) renderMini();
         });
 
-        audio.addEventListener("seeked", updateProgress);
+        audio.addEventListener("seeked", () => {
+            updateProgress();
+            if (mini.current === audio) renderMini();
+        });
 
         bar.addEventListener("click", (e) => {
             if (!isFinite(audio.duration)) return;
