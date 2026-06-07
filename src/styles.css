@@ -1,0 +1,233 @@
+body {
+    background: #f5f0e8;
+    color: #222;
+    font-family: Georgia, serif;
+    font-size: 18px;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.post {
+    border-bottom: 1px solid #bbb;
+    padding: 12px 0;
+}
+
+.date {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 6px;
+}
+
+p {
+    margin: 0 0 6px 0;
+    line-height: 1.6;
+}
+
+video,
+img {
+    max-width: 100%;
+    margin-top: 8px;
+    display: block;
+}
+
+/* ---- Reproductor de audio a tono con el blog ---- */
+.audio-player {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    padding: 8px 10px;
+    background: #efe8dc;
+    border: 1px solid #bbb;
+    box-sizing: border-box;
+}
+
+.audio-player .ap-play {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    font-size: 11px;
+    line-height: 1;
+    color: #f5f0e8;
+    border: 1px solid #8a7d62;
+    border-radius: 50%;
+    background: #9a8d72;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.audio-player .ap-play:hover {
+    background: #8a7d62;
+}
+
+.audio-player .ap-play:active {
+    transform: scale(0.92);
+}
+
+.audio-player .ap-bar {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 16px;
+    display: block;
+    cursor: pointer;
+    overflow: visible;
+}
+
+.audio-player .ap-track,
+.audio-player .ap-fill {
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.audio-player .ap-track {
+    stroke: #ddd5c6;
+}
+
+.audio-player .ap-fill {
+    stroke: #9a8d72;
+}
+
+.audio-player .ap-time {
+    flex: 0 0 auto;
+    font-size: 12px;
+    color: #888;
+    font-variant-numeric: tabular-nums;
+    min-width: 34px;
+    text-align: right;
+}
+
+iframe {
+    width: 100%;
+    height: 500px;
+    margin-top: 8px;
+    border: 1px solid #bbb;
+}
+
+footer {
+    font-size: 11px;
+    color: #aaa;
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* ---- Seccion lateral de comentarios ---- */
+#comments-aside {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 280px;
+    max-height: calc(100vh - 40px);
+    display: flex;
+    flex-direction: column;
+    background: #efe8dc;
+    border: 1px solid #bbb;
+    padding: 14px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+#comments-aside h2 {
+    font-size: 15px;
+    margin: 0 0 10px 0;
+    font-weight: normal;
+    color: #555;
+}
+
+#comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+#comment-form input,
+#comment-form textarea {
+    font-family: Georgia, serif;
+    font-size: 13px;
+    padding: 6px;
+    border: 1px solid #bbb;
+    background: #f5f0e8;
+    box-sizing: border-box;
+}
+
+#comment-form textarea {
+    resize: vertical;
+    min-height: 50px;
+}
+
+#comment-form button {
+    font-family: Georgia, serif;
+    font-size: 13px;
+    padding: 6px;
+    border: 1px solid #999;
+    background: #e2d9c8;
+    cursor: pointer;
+}
+
+#comment-form button:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+#comment-status {
+    font-size: 12px;
+    color: #888;
+    min-height: 14px;
+}
+
+#comment-list {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.comment {
+    border-top: 1px solid #ccc;
+    padding-top: 8px;
+}
+
+.comment .c-author {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.comment .c-date {
+    font-size: 11px;
+    color: #999;
+    margin-left: 6px;
+}
+
+.comment .c-message {
+    margin: 4px 0 0 0;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* En pantallas angostas no hay lugar al costado: lo mandamos arriba de los posts */
+@media (max-width: 1100px) {
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #comments-aside {
+        position: static;
+        width: auto;
+        max-height: none;
+        margin: 0 0 30px 0;
+        order: -1;
+    }
+
+    #comment-list {
+        max-height: 400px;
+    }
+}

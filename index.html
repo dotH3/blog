@@ -5,169 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>H3k</title>
-    <style>
-        body {
-            background: #f5f0e8;
-            color: #222;
-            font-family: Georgia, serif;
-            font-size: 18px;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .post {
-            border-bottom: 1px solid #bbb;
-            padding: 12px 0;
-        }
-
-        .date {
-            font-size: 13px;
-            color: #888;
-            margin-bottom: 6px;
-        }
-
-        p {
-            margin: 0 0 6px 0;
-            line-height: 1.6;
-        }
-
-        video,
-        img {
-            max-width: 100%;
-            margin-top: 8px;
-            display: block;
-        }
-
-        iframe {
-            width: 100%;
-            height: 500px;
-            margin-top: 8px;
-            border: 1px solid #bbb;
-        }
-
-        footer {
-            font-size: 11px;
-            color: #aaa;
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        /* ---- Seccion lateral de comentarios ---- */
-        #comments-aside {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 280px;
-            max-height: calc(100vh - 40px);
-            display: flex;
-            flex-direction: column;
-            background: #efe8dc;
-            border: 1px solid #bbb;
-            padding: 14px;
-            font-size: 14px;
-            box-sizing: border-box;
-        }
-
-        #comments-aside h2 {
-            font-size: 15px;
-            margin: 0 0 10px 0;
-            font-weight: normal;
-            color: #555;
-        }
-
-        #comment-form {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin-bottom: 12px;
-        }
-
-        #comment-form input,
-        #comment-form textarea {
-            font-family: Georgia, serif;
-            font-size: 13px;
-            padding: 6px;
-            border: 1px solid #bbb;
-            background: #f5f0e8;
-            box-sizing: border-box;
-        }
-
-        #comment-form textarea {
-            resize: vertical;
-            min-height: 50px;
-        }
-
-        #comment-form button {
-            font-family: Georgia, serif;
-            font-size: 13px;
-            padding: 6px;
-            border: 1px solid #999;
-            background: #e2d9c8;
-            cursor: pointer;
-        }
-
-        #comment-form button:disabled {
-            opacity: 0.5;
-            cursor: default;
-        }
-
-        #comment-status {
-            font-size: 12px;
-            color: #888;
-            min-height: 14px;
-        }
-
-        #comment-list {
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .comment {
-            border-top: 1px solid #ccc;
-            padding-top: 8px;
-        }
-
-        .comment .c-author {
-            font-weight: bold;
-            font-size: 13px;
-        }
-
-        .comment .c-date {
-            font-size: 11px;
-            color: #999;
-            margin-left: 6px;
-        }
-
-        .comment .c-message {
-            margin: 4px 0 0 0;
-            line-height: 1.45;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-
-        /* En pantallas angostas no hay lugar al costado: lo mandamos arriba de los posts */
-        @media (max-width: 1100px) {
-            body {
-                display: flex;
-                flex-direction: column;
-            }
-
-            #comments-aside {
-                position: static;
-                width: auto;
-                max-height: none;
-                margin: 0 0 30px 0;
-                order: -1;
-            }
-
-            #comment-list {
-                max-height: 400px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="src/styles.css">
 </head>
 
 <script>
@@ -175,169 +13,6 @@
         videos: true,
         imgs: true
     }
-    const posts = [
-        {
-            content: [`Lloroso y malherido, tumbado, a pasos de su dormitorio se encontraba. Con una cáscara quebrada y un interior podridamente apestado, su mente lo aquejaba –¡No tengo dónde ir, no tengo dónde postrar mi carne!– Como habitando espacios menores a cero.`],
-            date: '00:00 06/06/26',
-        },
-        {
-            content: ['Quiero leerme la Biblioteca de Babel una y otra vez.', 'Lo repito: basta que un libro sea posible para que exista. Solo está excluido lo imposible.'],
-            date: '00:00 21/04/26',
-        },
-        {
-            content: [],
-            video: 'src/assets/videos/2026-04-18 21-54-41.mp4',
-            date: '00:00 18/04/26',
-        },
-        {
-            content: ['Ahora que estoy acá ya no necesito más este par de papeles, digo ¿para qué? son pensamientos llenos de polvo que nadie va a leer nunca. Por esto mismo quiero hacerlos públicos. Si en algún momento de locura los hago arder, así ninguno saldría saltando.', 'I took a mental picture of the life i knew before my Evercolor.', 'Adjunto estas boletas llenas de pavadas.'],
-            pdf: 'src/assets/pdfs/papeles_20260322.pdf',
-            date: '16:39 22/03/26',
-        },
-        {
-            content: ['jodidamente tierno'],
-            img: 'src/assets/imgs/20260302_015614.jpg',
-            date: '01:59 02/03/26'
-        },
-        {
-            content: ['¿De qué puedo escribir? Desde que me mudé quiero retomar actividades o hábitos que tengo juntando polvo, uno de esos hábitos es escribir. Quizás podría empezar transcribiendo mis papeles escondidos en las páginas de los libros que me robé de la escuela secundaria.', 'Tocando otro tema, siento que debería alejarme aunque sea un poco de las pantallas y hacer cosas un poco más tangibles, crear algo físico, desde que conseguí un poco de plata gracias a mi hobby principal mi creatividad se vio capturada por lo digital.', '¿Aún tengo ganas de seguir jugando con código? Con toda sinceridad o desconocimiento puedo decir que ni siquiera yo lo sé, asumo que sí aun sabiendo que todavía no lo hablé conmigo mismo. Supongo que todo esto es cosa pendiente.'],
-            date: '00:00 19/02/26'
-        },
-        {
-            content: ['Han visto un loco en una calesita', 'Casi desnudo y con la vista enferma', 'Y daba vueltas y se sonreia', 'Y silbaba bajo por no molestar', 'Y Dios es una máquina de humo', 'Dicen que un ángel lo atrapó en el baño', 'Lo crusificó y le sacó los ojos', 'Y con su sangre se pinto los labios', 'Y cortó sus piernas y se las comió', 'Y Dios es una máquina de humo', 'Y Dios es una máquina!'],
-            date: '23:06 13/02/26'
-        },
-        {
-            content: ['soy grande miren'],
-            date: '22:00 05/02/26',
-            video: 'src/assets/videos/2026-02-05_compressed.mp4',
-        },
-        {
-            content: ['Todos podemos llegar a ser artistas, hasta que tenemos que pagar el alquiler.'],
-            date: '19:43 13/01/26'
-        },
-        {
-            content: [`me gustaría compartirles este blog que me encontré de la nada`, `https://esaviejaculturafrita.blogspot.com/`],
-            date: '21:02 05/01/26'
-
-        },
-        {
-            content: [`es la primera vez que publico uno de mis apuntes en video. intento n4 de grabar esto`],
-            video: 'src/assets/videos/2026_01_03.mp4',
-            date: '23:59 03/01/26'
-        },
-        {
-            content: [`Ya le estoy agarrando la mano al 2024`],
-            date: '05:59 30/12/25'
-        },
-        {
-            content: [`Tengo muy descuidados mis apuntes y conceptos guardados en este documento. En mi defensa seguí mis pensamientos en otros formatos como el papel de las boletas de las elecciones pasadas, el blog, un par de libretas de las cuales no sé algo hace ya un buen tiempo.`, `Creo que sería bueno que nos pongamos al día, ya sabes, vos y yo, desde que empecé a parlotear no dijiste ni una palabra… ¿Qué? ¿Hola? Si, te estoy hablando a vos… ¿Por qué no respondes? ah, claro, no puedo escucharte, soy solo un escrito. Esa ruptura de la cuarta pared fue penosa, lo sé, pero no iba a desperdiciar la oportunidad de tenerla en mi historial.`, `Retomando mi egocentrismo, estaba por escribir que no había mucho que contar, como buscando esconderme de nadie. La verdad es que si, pasaron muchas cosas; pude aprobar la materia del tan querido “Narigueta”, nunca pensé mencionarlo acá, en fin, tenía miedo de que su materia me atormentará toda la vida. Si estás leyendo esto, Jorge, te quería dar las gracias por ser tan exigente conmigo. También te quiero pedir perdón por todos los chistes que hice de vos.`, `Así que acá estoy, me pude egresar de la escuela secundaria en tiempo y forma. Obviamente no fue sólo mérito mío, lo logré gracias a mi “Primo” ruludo, a mi “Hombre Reinsertado en la Sociedad”, a mis viejos que tanto me hicieron el aguante y a mi Flaca. En fin, tuvimos lindos momentos con el curso. Ya hicimos “Último Último Día”, ya hicimos cena para celebrar, ya hicimos acto de semblanzas. Todo estuvo muy lindo, fantásticos recuerdos y conceptos`, `Sinceramente no quería que este escrito se transforme en una especie de bitácora o diario personal, pero bueno, no tenía ganas de explicar o dejar por constante estos primeros días pos-secundario. Es la primera vez que tengo tiempo para hacer lo que yo quiera`, `CAMBIO DE PLANES, “HOMBRE REINSERTADO EN LA SOCIEDAD“ Y YO VAMOS A TOMAR UNA RICA Y FRIA COCA. LUEGO SIGO ESCRIBIENDO ESTO, TE PIDO PORFAVOR QUE ME ESPERES, SOLO ME VOY A IR POR UNAS HORAS`],
-            date: '02:00 22/12/25'
-        },
-        {
-            content: [
-                `Escuché a muchos románticos decir que “morirían por amor”, pero creo no haber escuchado a nadie decir “viviría por amor”. Si te pones a pensar, vivir para alguien es mucho más difícil y áspero, todos pueden morir, total cuando estamos muertos no tenemos registro, es un simple pasaje y chau.`,
-                `Me parece curiosa mi forma de ver esto y se me hace más romántico el hecho de querer vivir por alguien, no todos están dispuestos a dar su tiempo y sus fuerzas. Casi todos van a dar lo más barato y común posible, la muerte, mi punto es que no le encuentro lógica a resaltar que morirías por alguien. No significa nada.`,
-                `Pongamos de ejemplo a una pareja de ancianos; el hecho de que hayan compartido tanto tiempo juntos tiene una pinta única e irrepetible. Seguramente esta pareja se conoce tan bien que a la hora de merendar, Olga ni se mosquea en preguntarle qué quiere; seguramente sea ese mate cocido que compran todos los segundos días del mes en la despensa  de Marega. Evaristo, por otro lado, va preparando ese colorido salamín de los jueves por la tarde.`,
-            ],
-            date: '00:00 07/10/25'
-        },
-        {
-            content: [`Cómo alimentar a tu león recién domesticado, en tres simples pasos:`, `1. Cortar por la línea de puntos. Tenga cuidado de no lastimarse con el vidrio superior`, `2. Una vez realizado el paso 17. Poner boca arriba encima de una superficie lo suficientemente plana para extender el manual de instrucciones de su nuevo y reluciente lavavajilla`, `3. Seleccionar el sistema operativo deseado. Recuerde no exceder la memoria del PC`, `4. Agregar sal (a gusto del chef)`, `5. ¡Disfrute de su tractor de cosecha!`, `- La distribuidora no se hace responsable de: tardanzas de envío. Problemas de temperatura. El despertar de un antiguo dios azteca. Viajes eternos al Éter. Colores de producto erróneos`],
-            img: 'src/assets/imgs/55be1d22-9b5e-4fb1-ad79-f198c817772e.jpeg',
-            date: '00:00 23/09/25'
-        },
-        {
-            content: [`Creo que las cosas me están yendo bastante bien. últimamente mis días se resumen en ir a la escuela, venir a la oficina para trabajar un poco, compartir algún capítulo o un té caliente con mi flaca, y por último volver a casa a dormir para repetir la rutina. Hay domingos en los cuales me tomo el atrevimiento de dormir unas horas de más, o de visitar algún amigo para charlar y tomar unos verdes.`, `A estas alturas no sé si es preocupación por lo económico, o simple pasión por lo que hago. Pero me di cuenta que AMO desarrollar software. Me siento completamente atrapado por la idea de que acá las cosas siempre salen como las escribo, no creo que sea un fetiche de tener todo controlado todo el tiempo, ya que esto no es correcto, no necesariamente tengo el control de las cosas que escribo. Todo siempre sale tal cual lo programo, quizás esa programación no es concordante con lo que yo necesito, pero es una verdad real a lo que está escrito, eso me enamora. Quizás no pueda dedicarme laboralmente a esto toda mi vida, pero estoy seguro que lo seguiré haciendo aunque sea como un hobby de fines de semana`],
-            img: 'src/assets/imgs/screenshot.png',
-            date: '02:41 09/06/25'
-        },
-        {
-            content: [
-                `Mi vieja me dio la vida, Ecomenu las ganas de vivirla`,
-            ],
-            img: 'src/assets/imgs/20250418_171646.jpg',
-            date: '00:05 19/04/25'
-        },
-        {
-            content: [
-                `La idea de un mundo donde cada humano pueda tener su propio sol me fascina: que tenga un diámetro de unos centímetros, que lo podamos meter en un frasquito de mermelada y sacarlo cuando nuestro grupo nos patee y tengamos que echarnos a llorar. Digo esto mismo por estar aterrado de compartir el mismo sol; tengo miedo de estar usando el mismo sol que ya usaron todos.`,
-                `¿Acaso soy egoísta por siquiera pensar en la posibilidad de tener un sol un poquito más personal? Me bajonea el hecho de que todos los humanos en todos los momentos compartimos nuestro sol. Me bajonea la realidad.`,
-                `También, si nos ponemos con la fantasía y nos imaginamos que cada ser humano dejó una “línea de corte” por cada lugar por el que estuvo, vamos a lograr ver que la gran mayoría, por no decir la totalidad, no pudimos despegarnos de esta piedra suspendida en la nada. Esta idea, en una escala un poco surrealista, nos resume en poco más que una simple bola de hilos enredados.`,
-                `Esta idea es algo pava. Quizás simplemente hay alguien más en mi cabeza.`
-            ],
-            date: '00:43 07/4/25'
-        },
-        {
-            content: ['no sé si estoy para esta, mepa que me bajo'],
-            date: '00:39 15/03/2025'
-        },
-        {
-            content: ['código fuente de Floyd https://github.com/dotH3/ping_floyd'],
-            date: '18:03 04/03/25'
-        },
-        {
-            content: ['Estoy encerrado en estas 4 paredes como si fuera un extraño en este lugar. No siento calor ni en mi propio pueblo, no tengo idea de qué poronga estoy haciendo acá, tan lejos de donde soy oriundo.', 'Creo que estoy volviéndome un poquito loco, últimamente ya nada me llama, no la veo ni por un tubo. Me encuentro atrapado entre dos altos edificios de concreto, levanto mi cabeza para poder saber dónde estoy parado, pero lo único que logro ver son pájaros, son dos y en sus pechos puedo hasta notar sus pequeñas costillas. Se me hace algo raro verlos acá, ellos también están lejos de sus iguales, no son ni de la misma especie, pero se encontraron en este lugar tan acomodado.'],
-            date: '21:41 28/01/25'
-        },
-        {
-            content: ['Pensó que estaba tomando alguna bebida por tener sed. Cuando salió al patio en verdad solo fue a buscar la copa para tener algo en la mano, alguna excusa para ocultar sus ritmos nerviosos en sus cansadas manos', 'luego de ver sangre se preocupó por cosas pavas. tiene miedo de irse por sus raíces, pero, a la vez muchas de esas raíces están podridas o quizás simplemente no lo están aguantando', 'Si llegó hasta aquí, ¿de verdad existe una razón para volver?', 'Alguien sáquele esa piedra. Ya no puede más con ese calor que aún lo sigue, como torturándolo.'],
-            video: 'src/assets/videos/lago.mp4',
-            date: '21:44 24/01/25'
-        },
-        {
-            hidden: true,
-            content: ['mejor_reproductor_de_la_galaxia.png'],
-            img: 'src/assets/imgs/mejor_reproductor_de_la_galaxia.png',
-            date: '23:18 08/01/25'
-        },
-        {
-            hidden: true,
-            content: ['Gato con cara de boludo'],
-            video: "src/assets/videos/pedro_cat.mp4",
-            date: "09:09 30/12/24"
-        },
-        {
-            hidden: true,
-            content: ['Alguien que me lleve a un recital de Luimi'],
-            video: "src/assets/videos/luismi.mp4",
-            date: "09:04 28/12/24"
-        },
-        {
-            content: [
-                `Estas últimas semanas se imaginó una banda de rock con sus amigos, vio a su grupo dando mensajes de rebeldía. Nuevos acordes unidos por un propósito y por un símbolo que pueda dar un concepto de unión.`,
-                `¿Estamos viviendo la actualidad?`,
-                `Las actualidades eran las de antes, las de ahora son historia, puros chamuyos que no enganchan. Lo actual es cosa del pasado, lo moderno ya tiene 50 años, los muchachos que trabajan y buscan lo puntero están tomando mates en la esquina “¡Me había ganado falta envido con treinta y tres!”. Todo lo nuevo ya pasó hace rato`],
-            img: "src/assets/imgs/saurin_navidad.png",
-            date: "16:27 25/12/24"
-        },
-        {
-            content: ["The sun is the same in a relative way but you're older, Shorter of breath and one day closer to death."],
-            img: "src/assets/imgs/pff.jpeg",
-            date: "07:17 21/12/24"
-        },
-        {
-            content: ["En esta fiesta parece no quedar nadie. Vemos al pobre hombre salir al jardín trasero con una cerveza en la mano, ver los globos que seguramente exploten por ese pequeño, pero fugaz rayo de sol que los azota. No ve a nadie bailando este tango que suena, como si alguien que no fuese él lo escuchase. ", "Al parecer, lo único que se dignaron en dejarle son sus ropas (No necesitan taparse). Ya es la hora de volver.", "Con sus últimos y ahora eternos pensamientos, se digna a entender que la deuda por su “libertad” ahora será pagada con desgaste y soledad. A lo lejos se escuchan caballos galopar como si no pesaran, y su ruido cada vez más cercano lo hace reflexionar e intentar obtener el perdón divino. Ya es tarde."],
-            date: "21:09 04/12/24"
-        },
-        {
-            content: ["hoy instalé ubuntu 19 en un dinosaurio"],
-            img: "src/assets/imgs/67e23f79-1d2d-4616-86c1-7172ae82b641.jfif",
-            date: "19:42 27/11/24"
-        },
-        {
-            content: [`Ser el músico más influyente no significa nada... es muy relativo. A nadie le puede molestar que digan eso, también yo pienso, bueno, demostrámelo... Cuando hay gente que de golpe tenía como un concepto así "Almendriano" y empezó con eso y ahora hace... (Spinetta realiza con sus manos un gesto de guitarra y emite la onomatopeya chicu chicu)... es una cumbia... no sé, mucho no me debe escuchar, aflojó un poquito su entereza, se garcó y empezó a hacer otras cosas que no tienen el mismo calibre y ni piensa ni remotamente parecido a aquel que lo influyó, en este caso yo. La verdad es que no se nota que haya sido el más influyente... no me molestaría ser el menos influyente, porque son cosas para dorar la píldora y ya el hombre ya está más tranquilo.`, `Tkm, Flaco`],
-            date: "10:41 26/11/24"
-        },
-        {
-            content: [`Sus frágiles pies pisan con seguridad el verde y delicado pasto, el cual emana una extraña sensación fria. Este verde prado no tiene malezas ni insectos, parece estar completamente limpio, como si alguien se hubiera tomado el trabajo de hacer su camino y estadía mucho más llevadero.`],
-            date: "01:27 26/11/24"
-        },
-        {
-            content: [`estoy laburando, pelotudo`],
-            date: "00:00 20/11/24"
-        },
-    ]
 </script>
 
 <body>
@@ -358,18 +33,120 @@
 <script>
     const contentElement = document.getElementById("content")
 
-    posts.forEach((post, id) => {
-        const postElement = document.createElement('div');
-        postElement.className = 'post';
-        postElement.innerHTML = `
-            <div class="date">${post.date}</div>
-            ${post.content.map(c => `<p>${c}</p>`).join('')}
-            ${post.video ? `<video src="${post.video}" controls></video>` : ''}
-            ${post.img ? `<img src="${post.img}" />` : ''}
-            ${post.pdf ? `<a href="${post.pdf}" download>${post.pdf}</a>` : ''}
-        `
-        contentElement.appendChild(postElement)
-    })
+    // Los posts viven en src/posts.json; los traemos y renderizamos.
+    fetch("src/posts.json")
+        .then((res) => res.json())
+        .then((posts) => {
+            posts.forEach((post) => {
+                const postElement = document.createElement('div');
+                postElement.className = 'post';
+                postElement.innerHTML = `
+                    <div class="date">${post.date}</div>
+                    ${post.content.map(c => `<p>${c}</p>`).join('')}
+                    ${post.video ? `<video src="${post.video}" controls></video>` : ''}
+                    ${post.audio ? `
+                    <div class="audio-player">
+                        <audio src="${post.audio}" preload="metadata"></audio>
+                        <button class="ap-play" aria-label="reproducir">►</button>
+                        <svg class="ap-bar"><path class="ap-track"></path><path class="ap-fill"></path></svg>
+                        <span class="ap-time">0:00</span>
+                    </div>` : ''}
+                    ${post.img ? `<img src="${post.img}" />` : ''}
+                    ${post.pdf ? `<a href="${post.pdf}" download>${post.pdf}</a>` : ''}
+                `
+                contentElement.appendChild(postElement)
+            })
+            initAudioPlayers();
+        })
+        .catch((err) => console.error("No se pudieron cargar los posts:", err));
+
+    // ---- Inicializa los reproductores de audio personalizados ----
+    const fmtTime = (s) => {
+        if (!isFinite(s)) return "0:00";
+        const m = Math.floor(s / 60);
+        const sec = Math.floor(s % 60).toString().padStart(2, "0");
+        return `${m}:${sec}`;
+    };
+
+    // Genera un camino tipo víbora (onda senoidal) del ancho dado.
+    const buildWave = (width) => {
+        const height = 16, mid = height / 2, amp = 4, wavelength = 24, step = 2;
+        let d = `M 0 ${mid}`;
+        for (let x = step; x <= width; x += step) {
+            const y = mid + amp * Math.sin((x / wavelength) * Math.PI * 2);
+            d += ` L ${x.toFixed(1)} ${y.toFixed(1)}`;
+        }
+        return d;
+    };
+
+    function initAudioPlayers() {
+    document.querySelectorAll(".audio-player").forEach((player) => {
+        const audio = player.querySelector("audio");
+        const playBtn = player.querySelector(".ap-play");
+        const bar = player.querySelector(".ap-bar");
+        const track = player.querySelector(".ap-track");
+        const fill = player.querySelector(".ap-fill");
+        const time = player.querySelector(".ap-time");
+
+        let pathLen = 0;
+        let rafId = null;
+
+        const updateProgress = () => {
+            const ratio = audio.duration ? audio.currentTime / audio.duration : 0;
+            fill.style.strokeDashoffset = pathLen * (1 - ratio);
+        };
+
+        // Mientras reproduce, actualiza el avance cada frame (~60fps) en vez de
+        // depender de timeupdate (que dispara ~4 veces por segundo y se ve a saltos).
+        const tick = () => {
+            updateProgress();
+            rafId = requestAnimationFrame(tick);
+        };
+        const startTick = () => { if (rafId == null) rafId = requestAnimationFrame(tick); };
+        const stopTick = () => { if (rafId != null) { cancelAnimationFrame(rafId); rafId = null; } updateProgress(); };
+
+        // Dibuja (o redibuja) la víbora según el ancho actual del reproductor.
+        const drawWave = () => {
+            const w = bar.getBoundingClientRect().width;
+            if (!w) return;
+            const d = buildWave(w);
+            track.setAttribute("d", d);
+            fill.setAttribute("d", d);
+            pathLen = fill.getTotalLength();
+            fill.style.strokeDasharray = pathLen;
+            updateProgress();
+        };
+
+        drawWave();
+        window.addEventListener("resize", drawWave);
+
+        playBtn.addEventListener("click", () => {
+            if (audio.paused) audio.play();
+            else audio.pause();
+        });
+
+        audio.addEventListener("play", () => { playBtn.textContent = "❚❚"; startTick(); });
+        audio.addEventListener("pause", () => { playBtn.textContent = "►"; stopTick(); });
+        audio.addEventListener("ended", () => { playBtn.textContent = "►"; stopTick(); });
+
+        audio.addEventListener("loadedmetadata", () => {
+            time.textContent = fmtTime(audio.duration);
+        });
+
+        audio.addEventListener("timeupdate", () => {
+            time.textContent = fmtTime(audio.duration - audio.currentTime);
+        });
+
+        audio.addEventListener("seeked", updateProgress);
+
+        bar.addEventListener("click", (e) => {
+            if (!isFinite(audio.duration)) return;
+            const rect = bar.getBoundingClientRect();
+            const ratio = Math.min(Math.max((e.clientX - rect.left) / rect.width, 0), 1);
+            audio.currentTime = ratio * audio.duration;
+        });
+    });
+    }
 </script>
 
 <script>
