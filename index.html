@@ -50,6 +50,8 @@
                         <button class="ap-play" aria-label="reproducir">►</button>
                         <svg class="ap-bar"><path class="ap-track"></path><path class="ap-fill"></path></svg>
                         <span class="ap-time">0:00</span>
+                        <button class="ap-vol-btn" aria-label="volumen"></button>
+                        <div class="ap-vol"><div class="ap-vol-fill"></div></div>
                     </div>` : ''}
                     ${post.img ? `<img src="${post.img}" />` : ''}
                     ${post.pdf ? `<a href="${post.pdf}" download>${post.pdf}</a>` : ''}
@@ -145,6 +147,68 @@
             const ratio = Math.min(Math.max((e.clientX - rect.left) / rect.width, 0), 1);
             audio.currentTime = ratio * audio.duration;
         });
+
+        // ---- Control de volumen ----
+        const volBtn = player.querySelector(".ap-vol-btn");
+        const vol = player.querySelector(".ap-vol");
+        const volFill = player.querySelector(".ap-vol-fill");
+        let lastVol = 1;
+
+        // Icono de parlante segun el nivel: 0 silenciado, 1 bajo, 2 alto.
+        const speakerIcon = (level) => {
+            const body = '<path d="M2 6 H4.5 L8 3.2 V12.8 L4.5 10 H2 Z" fill="currentColor"/>';
+            let extra = "";
+            if (level === 0) {
+                extra = '<path d="M10.5 6 L14 9.5 M14 6 L10.5 9.5" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round"/>';
+            } else {
+                extra = '<path d="M10.3 6.2 Q12 8 10.3 9.8" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round"/>';
+                if (level === 2) extra += '<path d="M12 4.6 Q15 8 12 11.4" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round"/>';
+            }
+            return `<svg viewBox="0 0 16 16" width="16" height="16">${body}${extra}</svg>`;
+        };
+
+        const renderVol = () => {
+            const v = audio.muted ? 0 : audio.volume;
+            volFill.style.width = (v * 100) + "%";
+            volBtn.innerHTML = speakerIcon(v === 0 ? 0 : (v < 0.5 ? 1 : 2));
+        };
+
+        const setVolFromEvent = (e) => {
+            const rect = vol.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const ratio = Math.min(Math.max((clientX - rect.left) / rect.width, 0), 1);
+            audio.muted = false;
+            audio.volume = ratio;
+            if (ratio > 0) lastVol = ratio;
+        };
+
+        // Arrastrar o clickear la barrita para subir/bajar el volumen.
+        vol.addEventListener("mousedown", (e) => {
+            setVolFromEvent(e);
+            const move = (ev) => setVolFromEvent(ev);
+            const up = () => {
+                document.removeEventListener("mousemove", move);
+                document.removeEventListener("mouseup", up);
+            };
+            document.addEventListener("mousemove", move);
+            document.addEventListener("mouseup", up);
+        });
+        vol.addEventListener("touchstart", (e) => { setVolFromEvent(e); e.preventDefault(); }, { passive: false });
+        vol.addEventListener("touchmove", (e) => { setVolFromEvent(e); e.preventDefault(); }, { passive: false });
+
+        // El boton de parlante silencia / restaura.
+        volBtn.addEventListener("click", () => {
+            if (audio.muted || audio.volume === 0) {
+                audio.muted = false;
+                audio.volume = lastVol || 1;
+            } else {
+                lastVol = audio.volume;
+                audio.muted = true;
+            }
+        });
+
+        audio.addEventListener("volumechange", renderVol);
+        renderVol();
     });
     }
 </script>
