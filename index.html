@@ -49,6 +49,7 @@
         .then((res) => res.json())
         .then((posts) => {
             posts.forEach((post) => {
+                if (post.hidden) return;
                 const postElement = document.createElement('div');
                 postElement.className = 'post';
                 postElement.innerHTML = `
