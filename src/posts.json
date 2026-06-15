@@ -1,6 +1,11 @@
 [
   {
     "content": [],
+    "audio": "src/assets/audios/indio_solari_bajan_imitacion.mp3",
+    "date": "00:00 15/06/26"
+  },
+  {
+    "content": [],
     "audio": "src/assets/audios/aquellarre_movimiento.mp3",
     "date": "00:00 07/06/26"
   },
