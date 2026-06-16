@@ -365,3 +365,35 @@ footer {
         max-height: 400px;
     }
 }
+
+/* ---- Desencriptar canción (key inline en el post) ---- */
+.sp-unlock {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+}
+.sp-unlock .sp-key {
+    flex: 1;
+    min-width: 0;
+    font-family: Georgia, serif;
+    font-size: 14px;
+    padding: 5px 7px;
+    border: 1px solid #bbb;
+    background: #fdfaf4;
+}
+.sp-unlock button {
+    font-size: 15px;
+    padding: 5px 9px;
+    border: 1px solid #bbb;
+    background: #fdfaf4;
+    cursor: pointer;
+}
+.sp-unlock .sp-unlock-status {
+    font-size: 12px;
+    color: #888;
+    white-space: nowrap;
+}
+.song-player.locked {
+    opacity: 0.85;
+}
