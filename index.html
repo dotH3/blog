@@ -18,6 +18,19 @@
 
 <body>
     <div id="content"></div>
+
+    <dialog id="key-modal">
+        <form class="sp-unlock" method="dialog" autocomplete="off">
+            <div class="sp-unlock-title">encriptado</div>
+            <input class="sp-key" type="text" placeholder="key" />
+            <div class="sp-unlock-actions">
+                <button type="submit" class="sp-unlock-go">abrir</button>
+                <button type="button" class="sp-unlock-cancel">cancelar</button>
+            </div>
+            <span class="sp-unlock-status"></span>
+        </form>
+    </dialog>
+
     <footer>ahora que leiste todo esto, se siente un poco raro, no? ojala que no me conozcas en persona jaja</footer>
 
     <div id="sidebar">
@@ -33,10 +46,6 @@
                             <path class="ap-fill"></path>
                         </svg>
                         <span class="ap-time">0:00</span>
-                        <button class="ap-vol-btn" aria-label="volumen"></button>
-                        <div class="ap-vol">
-                            <div class="ap-vol-fill"></div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -52,6 +61,13 @@
             <div id="comment-list"></div>
         </aside>
     </div>
+
+    <button id="comments-fab" type="button" aria-label="comentarios">comentarios</button>
+
+    <dialog id="comments-modal">
+        <button id="comments-modal-close" type="button" aria-label="cerrar">✕</button>
+        <div id="comments-modal-slot"></div>
+    </dialog>
 </body>
 
 <script>
@@ -94,11 +110,11 @@
                         </div>
                     </div>` : ''}
                     ${post.songEnc ? `
-                    <div class="audio-player song-player locked">
+                    <div class="audio-player song-player locked" data-content="${post.content.join(' ')}">
                         <audio data-enc="${post.songEnc}" preload="none" data-title="encriptado"></audio>
-                        <div class="sp-cover"><span class="sp-cover-ph">🔒</span></div>
+                        <div class="sp-cover"><span class="sp-cover-ph sp-cover-ph-profile"><svg viewBox="0 0 56 56" width="56" height="56" aria-label="encriptado"><rect width="56" height="56" fill="#8a7d62"/><g fill="#ffffff"><circle cx="28" cy="22" r="11"/><path d="M28 35c-11 0-20 7-20 16v5h40v-5c0-9-9-16-20-16z"/></g></svg></span></div>
                         <div class="sp-body">
-                            <div class="sp-name">encriptado</div>
+                            <div class="sp-name">${post.songEnc.split('/').pop()}</div>
                             <div class="sp-controls">
                                 <button class="ap-play" aria-label="reproducir">►</button>
                                 <svg class="ap-bar"><path class="ap-track"></path><path class="ap-fill"></path></svg>
@@ -106,11 +122,6 @@
                                 <button class="ap-vol-btn" aria-label="volumen"></button>
                                 <div class="ap-vol"><div class="ap-vol-fill"></div></div>
                             </div>
-                            <form class="sp-unlock" autocomplete="off">
-                                <input class="sp-key" type="text" placeholder="key" />
-                                <button type="submit" aria-label="desencriptar">abrir</button>
-                                <span class="sp-unlock-status"></span>
-                            </form>
                         </div>
                     </div>` : ''}
                     ${post.img ? `<img src="${post.img}" />` : ''}
@@ -131,8 +142,9 @@
         console.log("[meta] song-players encontrados:", players.length);
         players.forEach((player) => {
             const audio = player.querySelector("audio");
-            // Saltea las encriptadas todavía bloqueadas (sin src real aún).
-            if (audio.dataset.enc || !audio.getAttribute("src")) return;
+            // Saltea las encriptadas todavía bloqueadas (sin src real aún) y
+            // el mini-player (no tiene <audio> propio).
+            if (!audio || audio.dataset.enc || !audio.getAttribute("src")) return;
             const cover = player.querySelector(".sp-cover");
             const name = player.querySelector(".sp-name");
             const src = audio.src;
@@ -164,6 +176,8 @@
                                 cover.style.backgroundImage = `url("${url}")`;
                                 cover.classList.add("has-cover");
                             }
+                            // Refresca el mini si esta canción ya está sonando.
+                            if (typeof window.refreshMini === "function") window.refreshMini(audio);
                         },
                         onError: (err) => {
                             console.error("[meta] jsmediatags onError", src, err);
@@ -223,19 +237,8 @@
             track: document.querySelector("#mini-player .ap-track"),
             fill: document.querySelector("#mini-player .ap-fill"),
             time: document.querySelector("#mini-player .ap-time"),
-            volBtn: document.querySelector("#mini-player .ap-vol-btn"),
-            vol: document.querySelector("#mini-player .ap-vol"),
-            volFill: document.querySelector("#mini-player .ap-vol-fill"),
             current: null,
             pathLen: 0,
-        };
-
-        const renderMiniVol = () => {
-            const a = mini.current;
-            if (!a) return;
-            const v = a.muted ? 0 : a.volume;
-            mini.volFill.style.width = (v * 100) + "%";
-            mini.volBtn.innerHTML = speakerIcon(v === 0 ? 0 : (v < 0.5 ? 1 : 2));
         };
 
         // Dibuja la víbora del mini reproductor segun su ancho (igual que en el post).
@@ -274,8 +277,12 @@
             }
             mini.el.hidden = false;
             drawMiniWave();
-            renderMiniVol();
         };
+
+        // Si la metadata (portada/título) llega DESPUÉS de empezar a sonar
+        // (caso típico: canción encriptada que se reproduce apenas se desbloquea),
+        // re-copia portada y título al mini reproductor en curso.
+        window.refreshMini = (audio) => { if (mini.current === audio) showMini(audio); };
 
         window.addEventListener("resize", () => { if (!mini.el.hidden) drawMiniWave(); });
 
@@ -297,42 +304,6 @@
             const rect = mini.bar.getBoundingClientRect();
             const ratio = Math.min(Math.max((e.clientX - rect.left) / rect.width, 0), 1);
             a.currentTime = ratio * a.duration;
-        });
-
-        // ---- Volumen del mini reproductor (controla el audio en curso) ----
-        let miniLastVol = 1;
-        const setMiniVolFromEvent = (e) => {
-            const a = mini.current;
-            if (!a) return;
-            const rect = mini.vol.getBoundingClientRect();
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const ratio = Math.min(Math.max((clientX - rect.left) / rect.width, 0), 1);
-            a.muted = false;
-            a.volume = ratio;
-            if (ratio > 0) miniLastVol = ratio;
-        };
-        mini.vol.addEventListener("mousedown", (e) => {
-            setMiniVolFromEvent(e);
-            const move = (ev) => setMiniVolFromEvent(ev);
-            const up = () => {
-                document.removeEventListener("mousemove", move);
-                document.removeEventListener("mouseup", up);
-            };
-            document.addEventListener("mousemove", move);
-            document.addEventListener("mouseup", up);
-        });
-        mini.vol.addEventListener("touchstart", (e) => { setMiniVolFromEvent(e); e.preventDefault(); }, { passive: false });
-        mini.vol.addEventListener("touchmove", (e) => { setMiniVolFromEvent(e); e.preventDefault(); }, { passive: false });
-        mini.volBtn.addEventListener("click", () => {
-            const a = mini.current;
-            if (!a) return;
-            if (a.muted || a.volume === 0) {
-                a.muted = false;
-                a.volume = miniLastVol || 1;
-            } else {
-                miniLastVol = a.volume;
-                a.muted = true;
-            }
         });
 
         const allAudios = [...document.querySelectorAll("#content .audio-player audio")];
@@ -379,6 +350,11 @@
             window.addEventListener("resize", drawWave);
 
             playBtn.addEventListener("click", () => {
+                // Encriptada: pedir key en vez de reproducir vacío.
+                if (player.classList.contains("locked")) {
+                    if (typeof window.openKeyModal === "function") window.openKeyModal(player);
+                    return;
+                }
                 if (audio.paused) audio.play();
                 else audio.pause();
             });
@@ -462,7 +438,6 @@
 
             audio.addEventListener("volumechange", () => {
                 renderVol();
-                if (mini.current === audio) renderMiniVol();
             });
             renderVol();
         });
@@ -574,7 +549,24 @@
     });
 
     loadComments();
-</script>
+
+    // ---- Comentarios en modal (solo mobile) ----
+    // Movemos el <aside> real adentro/afuera del dialog: conserva listeners e ids.
+    const fab = document.getElementById("comments-fab");
+    const modal = document.getElementById("comments-modal");
+    const modalSlot = document.getElementById("comments-modal-slot");
+    const modalClose = document.getElementById("comments-modal-close");
+    const aside = document.getElementById("comments-aside");
+    const sidebar = document.getElementById("sidebar");
+
+    fab.addEventListener("click", () => {
+        modalSlot.appendChild(aside);
+        modal.showModal();
+    });
+    const closeModal = () => modal.close();
+    modalClose.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+    modal.addEventListener("close", () => { sidebar.appendChild(aside); });
 </script>
 
 <script src="src/assets/audios/decrypt_music.js"></script>

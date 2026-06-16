@@ -44,50 +44,63 @@
     if (ph) ph.textContent = "♪";
     const nameEl = player.querySelector(".sp-name");
     if (nameEl) nameEl.textContent = fallback;
-    const form = player.querySelector(".sp-unlock");
-    if (form) form.remove();
+    const trigger = player.querySelector(".sp-unlock-trigger");
+    if (trigger) trigger.remove();
 
     // Re-lee el ID3 (portada + nombre) ahora que el audio está desbloqueado.
-    if (typeof window.loadSongMetadata === "function") window.loadSongMetadata();
+    // En try aparte: si falla, el decrypt ya fue OK, no es "key incorrecta".
+    try {
+      if (typeof window.loadSongMetadata === "function") window.loadSongMetadata();
+    } catch (err) {
+      console.error("[decrypt] loadSongMetadata falló (no afecta el unlock)", err);
+    }
   }
 
-  function wire(player) {
-    const form = player.querySelector(".sp-unlock");
-    if (!form || form.dataset.wired) return;
-    form.dataset.wired = "1";
+  // Modal único compartido por todos los players.
+  let currentPlayer = null;
+  function getModal() {
+    const dialog = document.getElementById("key-modal");
+    if (!dialog || dialog.dataset.wired) return dialog;
+    dialog.dataset.wired = "1";
+    const form = dialog.querySelector(".sp-unlock");
     const input = form.querySelector(".sp-key");
     const status = form.querySelector(".sp-unlock-status");
+    const cancel = form.querySelector(".sp-unlock-cancel");
+
+    cancel.addEventListener("click", () => dialog.close());
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const key = input.value;
-      if (!key) return;
+      if (!key || !currentPlayer) return;
       status.textContent = "…";
       try {
+        const player = currentPlayer;
         await unlock(player, key);
+        dialog.close();
+        const audio = player.querySelector("audio");
+        if (audio) audio.play().catch(() => {});
       } catch (err) {
         console.error("[decrypt] falló", err);
         status.textContent = "✗ key incorrecta";
       }
     });
+    return dialog;
   }
 
-  function init() {
-    document.querySelectorAll(".song-player.locked").forEach(wire);
+  function openKeyModal(player) {
+    const dialog = getModal();
+    if (!dialog || !player) return;
+    currentPlayer = player;
+    const title = dialog.querySelector(".sp-unlock-title");
+    if (title) title.textContent = player.dataset.content || "encriptado";
+    const input = dialog.querySelector(".sp-key");
+    const status = dialog.querySelector(".sp-unlock-status");
+    input.value = "";
+    status.textContent = "";
+    dialog.showModal();
+    input.focus();
   }
-
-  // Los posts se renderizan async; reintenta hasta que aparezcan.
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
-  // Por si el fetch de posts.json todavía no terminó al cargar este script.
-  let tries = 0;
-  const poll = setInterval(() => {
-    init();
-    if (document.querySelector(".song-player.locked .sp-unlock[data-wired]") || ++tries > 40) {
-      clearInterval(poll);
-    }
-  }, 250);
+  // El play del reproductor bloqueado abre el modal (ver initAudioPlayers).
+  window.openKeyModal = openKeyModal;
 })();
