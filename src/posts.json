@@ -1,12 +1,17 @@
 [
   {
     "content": [],
+    "song": "src/assets/audios/Mercedes Sosa - Soy Pan, Soy Paz, Soy Más (En Directo).mp3",
+    "date": "00:00 16/06/26"
+  },
+  {
+    "content": [],
     "audio": "src/assets/audios/indio_solari_bajan_imitacion.mp3",
     "date": "00:00 15/06/26"
   },
   {
     "content": [],
-    "audio": "src/assets/audios/aquellarre_movimiento.mp3",
+    "song": "src/assets/audios/aquellarre_movimiento.mp3",
     "date": "00:00 07/06/26"
   },
   {
