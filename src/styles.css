@@ -32,6 +32,10 @@ img {
     display: block;
 }
 
+img + img {
+    margin-top: 4px;
+}
+
 /* ---- Reproductor de audio a tono con el blog ---- */
 .audio-player {
     display: flex;

@@ -140,7 +140,7 @@
                             </div>
                         </div>
                     </div>` : ''}
-                    ${post.img ? `<img src="${post.img}" />` : ''}
+                    ${[...(post.imgs || []), ...(post.img ? [post.img] : [])].map(src => `<img src="${src}" />`).join('')}
                     ${post.pdf ? `<a href="${post.pdf}" download>${post.pdf}</a>` : ''}
                 `
                 contentElement.appendChild(postElement)
