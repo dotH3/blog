@@ -1,5 +1,13 @@
 [
   {
+    "date": "00:00 24/06/26",
+    "content": [
+      "La contraseña del último post es una palabra de 6 letras que se repite dos veces en '07/10/25'.",
+      "_ _ _ _ _ _ => T _ _ _"
+    ],
+    "pdf": "src/assets/pdfs/papeles_20260624.pdf"
+  },
+  {
     "date": "00:00 18/06/26",
     "content": [
       "15.07.24",
@@ -10,9 +18,7 @@
     "songEnc": "src/assets/audios/a102cea977bf356c811a05dcbbe5285b.enc"
   },
   {
-    "content": [
-      "Me estremece reparar cuentos enredados de extraños sabores."
-    ],
+    "content": ["Me estremece reparar cuentos enredados de extraños sabores."],
     "songEnc": "src/assets/audios/ed006cb213ae780c1a957f8f96e2bf81.enc",
     "date": "00:00 16/06/26"
   },
@@ -22,9 +28,7 @@
     "date": "00:00 15/06/26"
   },
   {
-    "content": [
-      "Suelto otro llanto oxidado."
-    ],
+    "content": ["Suelto otro llanto oxidado."],
     "songEnc": "src/assets/audios/aeec1a500f0223de288e3fd57e4f9d30.enc",
     "date": "00:00 07/06/26"
   },
@@ -57,9 +61,7 @@
     "date": "16:39 22/03/26"
   },
   {
-    "content": [
-      "jodidamente tierno"
-    ],
+    "content": ["jodidamente tierno"],
     "img": "src/assets/imgs/20260302_015614.jpg",
     "date": "01:59 02/03/26"
   },
@@ -88,9 +90,7 @@
     "date": "23:06 13/02/26"
   },
   {
-    "content": [
-      "soy grande miren"
-    ],
+    "content": ["soy grande miren"],
     "date": "22:00 05/02/26",
     "video": "src/assets/videos/2026-02-05_compressed.mp4",
     "hidden": true
@@ -118,9 +118,7 @@
     "hidden": true
   },
   {
-    "content": [
-      "Ya le estoy agarrando la mano al 2024"
-    ],
+    "content": ["Ya le estoy agarrando la mano al 2024"],
     "date": "05:59 30/12/25"
   },
   {
@@ -164,9 +162,7 @@
     "date": "02:41 09/06/25"
   },
   {
-    "content": [
-      "Mi vieja me dio la vida, Ecomenu las ganas de vivirla"
-    ],
+    "content": ["Mi vieja me dio la vida, Ecomenu las ganas de vivirla"],
     "img": "src/assets/imgs/20250418_171646.jpg",
     "date": "00:05 19/04/25"
   },
@@ -180,15 +176,11 @@
     "date": "00:43 07/4/25"
   },
   {
-    "content": [
-      "no sé si estoy para esta, mepa que me bajo"
-    ],
+    "content": ["no sé si estoy para esta, mepa que me bajo"],
     "date": "00:39 15/03/2025"
   },
   {
-    "content": [
-      "código fuente de Floyd https://github.com/dotH3/ping_floyd"
-    ],
+    "content": ["código fuente de Floyd https://github.com/dotH3/ping_floyd"],
     "date": "18:03 04/03/25"
   },
   {
@@ -211,25 +203,19 @@
   },
   {
     "hidden": true,
-    "content": [
-      "mejor_reproductor_de_la_galaxia.png"
-    ],
+    "content": ["mejor_reproductor_de_la_galaxia.png"],
     "img": "src/assets/imgs/mejor_reproductor_de_la_galaxia.png",
     "date": "23:18 08/01/25"
   },
   {
     "hidden": true,
-    "content": [
-      "Gato con cara de boludo"
-    ],
+    "content": ["Gato con cara de boludo"],
     "video": "src/assets/videos/pedro_cat.mp4",
     "date": "09:09 30/12/24"
   },
   {
     "hidden": true,
-    "content": [
-      "Alguien que me lleve a un recital de Luimi"
-    ],
+    "content": ["Alguien que me lleve a un recital de Luimi"],
     "video": "src/assets/videos/luismi.mp4",
     "date": "09:04 28/12/24"
   },
@@ -258,9 +244,7 @@
     "date": "21:09 04/12/24"
   },
   {
-    "content": [
-      "hoy instalé ubuntu 19 en un dinosaurio"
-    ],
+    "content": ["hoy instalé ubuntu 19 en un dinosaurio"],
     "img": "src/assets/imgs/67e23f79-1d2d-4616-86c1-7172ae82b641.jfif",
     "date": "19:42 27/11/24"
   },
@@ -278,9 +262,7 @@
     "date": "01:27 26/11/24"
   },
   {
-    "content": [
-      "estoy laburando, pelotudo"
-    ],
+    "content": ["estoy laburando, pelotudo"],
     "date": "00:00 20/11/24"
   }
 ]
