@@ -84,6 +84,8 @@
         <button id="comments-modal-close" type="button" aria-label="cerrar">✕</button>
         <div id="comments-modal-slot"></div>
     </dialog>
+
+    <div id="closure-stamp">:P</div>
 </body>
 
 <script>
@@ -147,6 +149,7 @@
             })
             initAudioPlayers();
             loadSongMetadata();
+            triggerRedaction();
         })
         .catch((err) => console.error("No se pudieron cargar los posts:", err));
 
@@ -209,6 +212,16 @@
     }
     // Expuesta para que decrypt_music.js re-lea el ID3 al desbloquear.
     window.loadSongMetadata = loadSongMetadata;
+
+    function triggerRedaction() {
+        const targets = document.querySelectorAll(
+            '.post p, .post img, .post video, .post .audio-player, .post a'
+        );
+        targets.forEach((el, i) => {
+            setTimeout(() => el.classList.add('redacted'), i * 400);
+        });
+        document.getElementById('closure-stamp').classList.add('stamped');
+    }
 
     // ---- Inicializa los reproductores de audio personalizados ----
     const fmtTime = (s) => {
