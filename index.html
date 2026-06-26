@@ -215,7 +215,7 @@
 
     function triggerRedaction() {
         const targets = document.querySelectorAll(
-            '.post p, .post img, .post video, .post .audio-player'
+            '.post p, .post img, .post video, .post .audio-player, .post a'
         );
         targets.forEach((el, i) => {
             setTimeout(() => el.classList.add('redacted'), i * 120);
