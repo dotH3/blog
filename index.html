@@ -85,7 +85,7 @@
         <div id="comments-modal-slot"></div>
     </dialog>
 
-    <div id="closure-stamp">cerrado.</div>
+    <div id="closure-stamp">:P</div>
 </body>
 
 <script>
@@ -218,11 +218,9 @@
             '.post p, .post img, .post video, .post .audio-player, .post a'
         );
         targets.forEach((el, i) => {
-            setTimeout(() => el.classList.add('redacted'), i * 120);
+            setTimeout(() => el.classList.add('redacted'), i * 400);
         });
-        setTimeout(() => {
-            document.getElementById('closure-stamp').classList.add('stamped');
-        }, targets.length * 120 + 400);
+        document.getElementById('closure-stamp').classList.add('stamped');
     }
 
     // ---- Inicializa los reproductores de audio personalizados ----

@@ -503,6 +503,8 @@ footer {
 .redacted {
     position: relative;
     overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
 }
 .redacted::after {
     content: '';
@@ -513,11 +515,20 @@ footer {
     height: calc(100% + 4px);
     background: #111;
     transform-origin: left center;
-    animation: redact 0.35s cubic-bezier(0.55, 0, 0.45, 1) forwards;
+    animation: redact 1.2s cubic-bezier(0.55, 0, 0.45, 1) forwards;
 }
 @keyframes redact {
     from { transform: scaleX(0); }
     to   { transform: scaleX(1); }
+}
+img.redacted,
+video.redacted {
+    filter: brightness(0);
+    transition: filter 1.2s cubic-bezier(0.55, 0, 0.45, 1);
+}
+img.redacted::after,
+video.redacted::after {
+    display: none;
 }
 
 #closure-stamp {
