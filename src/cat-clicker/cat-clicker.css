@@ -16,14 +16,36 @@
     -webkit-backdrop-filter: blur(3px);
 }
 
-/* El gato del cierre pasa a ser un botón clickeable. */
+/* Mientras el juego está activo bloqueamos el scroll del blog: el fondo es
+   solo decorado, así no se "rompe" al scrollear y la atención queda en el juego. */
+html.cc-active, html.cc-active body {
+    overflow: hidden;
+}
+/* position:fixed saca al body del flujo de scroll por completo (el overflow
+   hidden solo no alcanza en algunos navegadores). Conserva el centrado porque
+   el body ya trae max-width + margin:0 auto. */
+html.cc-active body {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+/* El gato del cierre pasa a ser un botón clickeable.
+   Sin selección ni highlight azul de tap (mobile) al clickearlo. */
 #closure-stamp {
     pointer-events: auto;
     cursor: pointer;
     user-select: none;
     -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 #closure-stamp img {
+    pointer-events: none;        /* el click lo recibe el div padre */
+    user-select: none;
+    -webkit-user-select: none;
     -webkit-user-drag: none;
     user-drag: none;
 }
@@ -69,37 +91,46 @@
     font-family: Georgia, "Times New Roman", serif;
     color: #4a4334;
 }
+/* Tarjeta sólida con sombra marcada para que el contador resalte sobre el
+   fondo oscurecido (antes el "🍪/s" suelto se perdía contra el dim). */
 #cc-counter {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+    background: #f5f0e8;
+    border: 1px solid #8a7d62;
+    border-radius: 10px;
+    padding: 8px 14px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.55);
+}
+#cc-counter-row {
     display: flex;
     align-items: baseline;
     gap: 6px;
-    background: #f5f0e8;
-    border: 1px solid #bbb;
-    border-radius: 8px;
-    padding: 6px 12px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 }
 #cc-score {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: bold;
     letter-spacing: 0.5px;
+    color: #3d3527;
 }
 #cc-coin { font-size: 18px; }
 #cc-cps {
     font-size: 13px;
     color: #8a7d62;
-    padding-right: 4px;
 }
 #cc-toggle {
     font-family: inherit;
     font-size: 13px;
     color: #4a4334;
     background: #efe8dc;
-    border: 1px solid #bbb;
+    border: 1px solid #8a7d62;
     border-radius: 6px;
-    padding: 4px 12px;
+    padding: 5px 14px;
     cursor: pointer;
     transition: background 0.15s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
 }
 #cc-toggle:hover { background: #e6ddcc; }
 #cc-toggle.open { background: #8a7d62; color: #f5f0e8; border-color: #8a7d62; }

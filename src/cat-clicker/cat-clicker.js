@@ -100,10 +100,12 @@
         hud.id = "cc-hud";
         hud.innerHTML = `
             <div id="cc-counter">
-                <span id="cc-score">0</span>
-                <span id="cc-coin">${COIN}</span>
+                <div id="cc-counter-row">
+                    <span id="cc-score">0</span>
+                    <span id="cc-coin">${COIN}</span>
+                </div>
+                <div id="cc-cps"><span id="cc-cps-val">0</span> 🍪/s</div>
             </div>
-            <div id="cc-cps"><span id="cc-cps-val">0</span> 🍪/s</div>
             <button id="cc-toggle" type="button">tienda</button>
         `;
 
@@ -161,11 +163,37 @@
         });
     }
 
+    // ---- Sonidito cute de recompensa (WebAudio, sin assets externos) ----
+    // Un "blip" corto y agudo con pitch levemente aleatorio para que no canse.
+    let audioCtx = null;
+    function playClickSound() {
+        try {
+            const AC = window.AudioContext || window.webkitAudioContext;
+            if (!AC) return;
+            if (!audioCtx) audioCtx = new AC();
+            if (audioCtx.state === "suspended") audioCtx.resume();
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "triangle";
+            const base = 660 + Math.random() * 120; // ~mi/fa agudo
+            osc.frequency.setValueAtTime(base, now);
+            osc.frequency.exponentialRampToValueAtTime(base * 1.5, now + 0.07);
+            gain.gain.setValueAtTime(0.0001, now);
+            gain.gain.exponentialRampToValueAtTime(0.12, now + 0.01);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.18);
+            osc.connect(gain).connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + 0.2);
+        } catch (e) { /* audio no disponible: ignorar */ }
+    }
+
     // ---- Interacción con el gato ----
     function onCatClick(e) {
         state.score += state.perClick;
         spawnFloat(e, state.perClick);
         squash();
+        playClickSound();
         save();
         render();
     }
@@ -249,6 +277,9 @@
         load();
         buildUI();
         render();
+
+        // Bloquea el scroll del blog: el fondo es decorado, el foco es el juego.
+        document.documentElement.classList.add("cc-active");
 
         stamp.addEventListener("click", onCatClick);
         if (catImg) catImg.addEventListener("animationend", onSquashEnd);
