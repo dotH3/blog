@@ -536,18 +536,15 @@ video.redacted::after {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(-12deg) scale(2);
-    color: #b00;
-    border: 3px solid #b00;
-    padding: 10px 20px;
-    font-size: 42px;
-    font-family: Georgia, serif;
-    letter-spacing: 0.05em;
     pointer-events: none;
     opacity: 0;
     z-index: 9999;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    background: rgba(245, 240, 232, 0.04);
+}
+#closure-stamp img {
+    display: block;
+    width: 200px;
+    height: auto;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
 }
 #closure-stamp.stamped {
     animation: stamp 0.25s cubic-bezier(0.17, 0.67, 0.3, 1.33) forwards;
