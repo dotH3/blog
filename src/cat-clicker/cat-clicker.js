@@ -11,13 +11,13 @@
     // Catálogo: el costo escala como base * 1.15^owned.
     // tipo "click" suma a perClick; tipo "passive" suma a croquetas/segundo.
     const CATALOG = [
-        { id: "cuchara",     name: "Cuchara",     tipo: "click",   base: 15,    efecto: 1,   desc: "+1 por click" },
-        { id: "sarten",      name: "Sartén",      tipo: "click",   base: 200,   efecto: 5,   desc: "+5 por click" },
-        { id: "cuchillo",    name: "Cuchillo",    tipo: "click",   base: 3000,  efecto: 20,  desc: "+20 por click" },
-        { id: "souschef",    name: "Sous-chef",   tipo: "passive", base: 50,    efecto: 1,   desc: "1 🍪/s" },
-        { id: "horno",       name: "Horno",       tipo: "passive", base: 500,   efecto: 8,   desc: "8 🍪/s" },
-        { id: "foodtruck",   name: "Food truck",  tipo: "passive", base: 6000,  efecto: 50,  desc: "50 🍪/s" },
-        { id: "restaurante", name: "Restaurante", tipo: "passive", base: 75000, efecto: 300, desc: "300 🍪/s" },
+        { id: "cuchara",     name: "Cuchara",     emoji: "🥄",    tipo: "click",   base: 15,    efecto: 1,   desc: "+1 por click" },
+        { id: "sarten",      name: "Sartén",      emoji: "🍳",    tipo: "click",   base: 200,   efecto: 5,   desc: "+5 por click" },
+        { id: "cuchillo",    name: "Cuchillo",    emoji: "🔪",    tipo: "click",   base: 3000,  efecto: 20,  desc: "+20 por click" },
+        { id: "souschef",    name: "Sous-chef",   emoji: "👨‍🍳", tipo: "passive", base: 50,    efecto: 1,   desc: "1 🍪/s" },
+        { id: "horno",       name: "Horno",       emoji: "🔥",    tipo: "passive", base: 500,   efecto: 8,   desc: "8 🍪/s" },
+        { id: "foodtruck",   name: "Food truck",  emoji: "🚚",    tipo: "passive", base: 6000,  efecto: 50,  desc: "50 🍪/s" },
+        { id: "restaurante", name: "Restaurante", emoji: "🍽️",    tipo: "passive", base: 75000, efecto: 300, desc: "300 🍪/s" },
     ];
 
     function defaultState() {
@@ -89,6 +89,13 @@
     const rows = {}; // id -> { btn, cost, count }
 
     function buildUI() {
+        // Capa que oscurece/difumina el blog para enfocar la atención en el juego.
+        // pointer-events:none → es puramente visual, no atrapa clicks; el gato y la
+        // UI del juego van por encima (z-index mayor).
+        const dim = document.createElement("div");
+        dim.id = "cc-dim";
+        document.body.appendChild(dim);
+
         const hud = document.createElement("div");
         hud.id = "cc-hud";
         hud.innerHTML = `
@@ -122,6 +129,7 @@
             row.className = "cc-item";
             row.type = "button";
             row.innerHTML = `
+                <span class="cc-item-emoji">${it.emoji}</span>
                 <div class="cc-item-main">
                     <span class="cc-item-name">${it.name}</span>
                     <span class="cc-item-desc">${it.desc}</span>

@@ -3,6 +3,19 @@
    borde #bbb, acento #8a7d62). Todo el override del gato vive acá, así
    borrar esta carpeta + las 2 líneas de index.html restaura el cierre. */
 
+/* Capa que oscurece + difumina el blog para que la vista se centre en el juego.
+   Va por debajo del gato (z-index 9999) y de la UI (10000), por encima del resto.
+   pointer-events:none → puramente visual, no bloquea clicks. */
+#cc-dim {
+    position: fixed;
+    inset: 0;
+    z-index: 9990;
+    pointer-events: none;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
 /* El gato del cierre pasa a ser un botón clickeable. */
 #closure-stamp {
     pointer-events: auto;
@@ -152,7 +165,14 @@
 .cc-item:active:not(:disabled) { transform: scale(0.98); }
 .cc-item:disabled { opacity: 0.5; cursor: default; }
 
-.cc-item-main { display: flex; flex-direction: column; gap: 2px; }
+.cc-item-emoji {
+    font-size: 22px;
+    line-height: 1;
+    flex: 0 0 auto;
+    margin-right: 10px;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
+}
+.cc-item-main { display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; }
 .cc-item-name { font-size: 14px; font-weight: bold; }
 .cc-item-desc { font-size: 12px; color: #8a7d62; }
 
