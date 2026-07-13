@@ -1,0 +1,18 @@
+.coral-pixels-regular {
+  font-family: "Coral Pixels", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #ffffff;
+  background-image: radial-gradient(#d1d5db 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+a.visited {
+  color: #9ca3af;
+  text-decoration: line-through;
+  text-decoration-color: #ff0000;
+}

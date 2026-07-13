@@ -1,12 +1,14 @@
 [
   {
+    "id": 1,
     "date": "00:00 24/06/26",
     "content": [
-"“Siempre quejándote de todo y a la vez fingiendo no darle importancia a nada, vives de esperanzas pero no sabes ni que esperar” -Julio Cortázar"
+      "“Siempre quejándote de todo y a la vez fingiendo no darle importancia a nada, vives de esperanzas pero no sabes ni que esperar” -Julio Cortázar"
     ],
     "pdf": "src/assets/pdfs/papeles_20260624.pdf"
   },
   {
+    "id": 2,
     "date": "00:00 18/06/26",
     "content": [
       "15.07.24",
@@ -17,27 +19,36 @@
     "songEnc": "src/assets/audios/a102cea977bf356c811a05dcbbe5285b.enc"
   },
   {
-    "content": ["Me estremece reparar cuentos enredados de extraños sabores."],
+    "id": 3,
+    "content": [
+      "Me estremece reparar cuentos enredados de extraños sabores."
+    ],
     "songEnc": "src/assets/audios/ed006cb213ae780c1a957f8f96e2bf81.enc",
     "date": "00:00 16/06/26"
   },
   {
+    "id": 4,
     "content": [],
     "audio": "src/assets/audios/indio_solari_bajan_imitacion.mp3",
     "date": "00:00 15/06/26"
   },
   {
-    "content": ["Suelto otro llanto oxidado."],
+    "id": 5,
+    "content": [
+      "Suelto otro llanto oxidado."
+    ],
     "songEnc": "src/assets/audios/aeec1a500f0223de288e3fd57e4f9d30.enc",
     "date": "00:00 07/06/26"
   },
   {
+    "id": 6,
     "content": [
       "Lloroso y malherido, tumbado, a pasos de su dormitorio se encontraba. Con una cáscara quebrada y un interior podridamente apestado, su mente lo aquejaba –¡No tengo dónde ir, no tengo dónde postrar mi carne!– Como habitando espacios menores a cero."
     ],
     "date": "00:00 06/06/26"
   },
   {
+    "id": 7,
     "content": [
       "Quiero leerme la Biblioteca de Babel una y otra vez.",
       "Lo repito: basta que un libro sea posible para que exista. Solo está excluido lo imposible."
@@ -45,12 +56,14 @@
     "date": "00:00 21/04/26"
   },
   {
+    "id": 8,
     "content": [],
     "video": "src/assets/videos/2026-04-18_compressed.mp4",
     "date": "00:00 18/04/26",
     "hidden": true
   },
   {
+    "id": 9,
     "content": [
       "Ahora que estoy acá ya no necesito más este par de papeles, digo ¿para qué? son pensamientos llenos de polvo que nadie va a leer nunca. Por esto mismo quiero hacerlos públicos. Así si en algún momento de locura los hago arder, ninguno saldría saltando.",
       "I took a mental picture of the life i knew before my Evercolor.",
@@ -60,11 +73,15 @@
     "date": "16:39 22/03/26"
   },
   {
-    "content": ["jodidamente tierno"],
+    "id": 10,
+    "content": [
+      "jodidamente tierno"
+    ],
     "img": "src/assets/imgs/20260302_015614.jpg",
     "date": "01:59 02/03/26"
   },
   {
+    "id": 11,
     "content": [
       "¿De qué puedo escribir? Desde que me mudé quiero retomar actividades o hábitos que tengo juntando polvo, uno de esos hábitos es escribir. Quizás podría empezar transcribiendo mis papeles escondidos en las páginas de los libros que me robé de la escuela secundaria.",
       "Tocando otro tema, siento que debería alejarme aunque sea un poco de las pantallas y hacer cosas un poco más tangibles, crear algo físico, desde que conseguí un poco de plata gracias a mi hobby principal mi creatividad se vio capturada por lo digital.",
@@ -73,6 +90,7 @@
     "date": "00:00 19/02/26"
   },
   {
+    "id": 12,
     "content": [
       "Han visto un loco en una calesita",
       "Casi desnudo y con la vista enferma",
@@ -89,12 +107,16 @@
     "date": "23:06 13/02/26"
   },
   {
-    "content": ["soy grande miren"],
+    "id": 13,
+    "content": [
+      "soy grande miren"
+    ],
     "date": "22:00 05/02/26",
     "video": "src/assets/videos/2026-02-05_compressed.mp4",
     "hidden": true
   },
   {
+    "id": 14,
     "content": [
       "Todos podemos llegar a ser artistas, hasta que tenemos que pagar el alquiler.",
       "Mai dire mai, mai piú."
@@ -102,6 +124,7 @@
     "date": "19:43 13/01/26"
   },
   {
+    "id": 15,
     "content": [
       "me gustaría compartirles este blog que me encontré de la nada",
       "https://esaviejaculturafrita.blogspot.com/"
@@ -109,6 +132,7 @@
     "date": "21:02 05/01/26"
   },
   {
+    "id": 16,
     "content": [
       "es la primera vez que publico uno de mis apuntes en video. intento n4 de grabar esto"
     ],
@@ -117,10 +141,14 @@
     "hidden": true
   },
   {
-    "content": ["Ya le estoy agarrando la mano al 2024"],
+    "id": 17,
+    "content": [
+      "Ya le estoy agarrando la mano al 2024"
+    ],
     "date": "05:59 30/12/25"
   },
   {
+    "id": 18,
     "content": [
       "Tengo muy descuidados mis apuntes y conceptos guardados en este documento. En mi defensa seguí mis pensamientos en otros formatos como el papel de las boletas de las elecciones pasadas, el blog, un par de libretas de las cuales no sé algo hace ya un buen tiempo.",
       "Creo que sería bueno que nos pongamos al día, ya sabes, vos y yo, desde que empecé a parlotear no dijiste ni una palabra… ¿Qué? ¿Hola? Si, te estoy hablando a vos… ¿Por qué no respondes? ah, claro, no puedo escucharte, soy solo un escrito. Esa ruptura de la cuarta pared fue penosa, lo sé, pero no iba a desperdiciar la oportunidad de tenerla en mi historial.",
@@ -132,6 +160,7 @@
     "date": "02:00 22/12/25"
   },
   {
+    "id": 19,
     "content": [
       "Escuché a muchos románticos decir que “morirían por amor”, pero creo no haber escuchado a nadie decir “viviría por amor”. Si te pones a pensar, vivir para alguien es mucho más difícil y áspero, todos pueden morir, total cuando estamos muertos no tenemos registro, es un simple pasaje y chau.",
       "Me parece curiosa mi forma de ver esto y se me hace más romántico el hecho de querer vivir por alguien, no todos están dispuestos a dar su tiempo y sus fuerzas. Casi todos van a dar lo más barato y común posible, la muerte, mi punto es que no le encuentro lógica a resaltar que morirías por alguien. No significa nada.",
@@ -140,6 +169,7 @@
     "date": "00:00 07/10/25"
   },
   {
+    "id": 20,
     "content": [
       "Cómo alimentar a tu león recién domesticado, en tres simples pasos:",
       "1. Cortar por la línea de puntos. Tenga cuidado de no lastimarse con el vidrio superior",
@@ -153,6 +183,7 @@
     "date": "00:00 23/09/25"
   },
   {
+    "id": 21,
     "content": [
       "Creo que las cosas me están yendo bastante bien. últimamente mis días se resumen en ir a la escuela, venir a la oficina para trabajar un poco, compartir algún capítulo o un té caliente con mi flaca, y por último volver a casa a dormir para repetir la rutina. Hay domingos en los cuales me tomo el atrevimiento de dormir unas horas de más, o de visitar algún amigo para charlar y tomar unos verdes.",
       "A estas alturas no sé si es preocupación por lo económico, o simple pasión por lo que hago. Pero me di cuenta que AMO desarrollar software. Me siento completamente atrapado por la idea de que acá las cosas siempre salen como las escribo, no creo que sea un fetiche de tener todo controlado todo el tiempo, ya que esto no es correcto, no necesariamente tengo el control de las cosas que escribo. Todo siempre sale tal cual lo programo, quizás esa programación no es concordante con lo que yo necesito, pero es una verdad real a lo que está escrito, eso me enamora. Quizás no pueda dedicarme laboralmente a esto toda mi vida, pero estoy seguro que lo seguiré haciendo aunque sea como un hobby de fines de semana"
@@ -161,11 +192,15 @@
     "date": "02:41 09/06/25"
   },
   {
-    "content": ["Mi vieja me dio la vida, Ecomenu las ganas de vivirla"],
+    "id": 22,
+    "content": [
+      "Mi vieja me dio la vida, Ecomenu las ganas de vivirla"
+    ],
     "img": "src/assets/imgs/20250418_171646.jpg",
     "date": "00:05 19/04/25"
   },
   {
+    "id": 23,
     "content": [
       "La idea de un mundo donde cada humano pueda tener su propio sol me fascina: que tenga un diámetro de unos centímetros, que lo podamos meter en un frasquito de mermelada y sacarlo cuando nuestro grupo nos patee y tengamos que echarnos a llorar. Digo esto mismo por estar aterrado de compartir el mismo sol; tengo miedo de estar usando el mismo sol que ya usaron todos.",
       "¿Acaso soy egoísta por siquiera pensar en la posibilidad de tener un sol un poquito más personal? Me bajonea el hecho de que todos los humanos en todos los momentos compartimos nuestro sol. Me bajonea la realidad.",
@@ -175,14 +210,21 @@
     "date": "00:43 07/4/25"
   },
   {
-    "content": ["no sé si estoy para esta, mepa que me bajo"],
+    "id": 24,
+    "content": [
+      "no sé si estoy para esta, mepa que me bajo"
+    ],
     "date": "00:39 15/03/2025"
   },
   {
-    "content": ["código fuente de Floyd https://github.com/dotH3/ping_floyd"],
+    "id": 25,
+    "content": [
+      "código fuente de Floyd https://github.com/dotH3/ping_floyd"
+    ],
     "date": "18:03 04/03/25"
   },
   {
+    "id": 26,
     "content": [
       "Estoy encerrado en estas 4 paredes como si fuera un extraño en este lugar. No siento calor ni en mi propio pueblo, no tengo idea de qué poronga estoy haciendo acá, tan lejos de donde soy oriundo.",
       "Creo que estoy volviéndome un poquito loco, últimamente ya nada me llama, no la veo ni por un tubo. Me encuentro atrapado entre dos altos edificios de concreto, levanto mi cabeza para poder saber dónde estoy parado, pero lo único que logro ver son pájaros, son dos y en sus pechos puedo hasta notar sus pequeñas costillas. Se me hace algo raro verlos acá, ellos también están lejos de sus iguales, no son ni de la misma especie, pero se encontraron en este lugar tan acomodado."
@@ -190,6 +232,7 @@
     "date": "21:41 28/01/25"
   },
   {
+    "id": 27,
     "content": [
       "Pensó que estaba tomando alguna bebida por tener sed. Cuando salió al patio en verdad solo fue a buscar la copa para tener algo en la mano, alguna excusa para ocultar sus ritmos nerviosos en sus cansadas manos",
       "luego de ver sangre se preocupó por cosas pavas. tiene miedo de irse por sus raíces, pero, a la vez muchas de esas raíces están podridas o quizás simplemente no lo están aguantando",
@@ -201,24 +244,34 @@
     "hidden": true
   },
   {
+    "id": 28,
     "hidden": true,
-    "content": ["mejor_reproductor_de_la_galaxia.png"],
+    "content": [
+      "mejor_reproductor_de_la_galaxia.png"
+    ],
     "img": "src/assets/imgs/mejor_reproductor_de_la_galaxia.png",
     "date": "23:18 08/01/25"
   },
   {
+    "id": 29,
     "hidden": true,
-    "content": ["Gato con cara de boludo"],
+    "content": [
+      "Gato con cara de boludo"
+    ],
     "video": "src/assets/videos/pedro_cat.mp4",
     "date": "09:09 30/12/24"
   },
   {
+    "id": 30,
     "hidden": true,
-    "content": ["Alguien que me lleve a un recital de Luimi"],
+    "content": [
+      "Alguien que me lleve a un recital de Luimi"
+    ],
     "video": "src/assets/videos/luismi.mp4",
     "date": "09:04 28/12/24"
   },
   {
+    "id": 31,
     "content": [
       "Estas últimas semanas se imaginó una banda de rock con sus amigos, vio a su grupo dando mensajes de rebeldía. Nuevos acordes unidos por un propósito y por un símbolo que pueda dar un concepto de unión.",
       "¿Estamos viviendo la actualidad?",
@@ -228,6 +281,7 @@
     "date": "16:27 25/12/24"
   },
   {
+    "id": 32,
     "content": [
       "The sun is the same in a relative way but you're older, Shorter of breath and one day closer to death."
     ],
@@ -235,6 +289,7 @@
     "date": "07:17 21/12/24"
   },
   {
+    "id": 33,
     "content": [
       "En esta fiesta parece no quedar nadie. Vemos al pobre hombre salir al jardín trasero con una cerveza en la mano, ver los globos que seguramente exploten por ese pequeño, pero fugaz rayo de sol que los azota. No ve a nadie bailando este tango que suena, como si alguien que no fuese él lo escuchase. ",
       "Al parecer, lo único que se dignaron en dejarle son sus ropas (No necesitan taparse). Ya es la hora de volver.",
@@ -243,11 +298,15 @@
     "date": "21:09 04/12/24"
   },
   {
-    "content": ["hoy instalé ubuntu 19 en un dinosaurio"],
+    "id": 34,
+    "content": [
+      "hoy instalé ubuntu 19 en un dinosaurio"
+    ],
     "img": "src/assets/imgs/67e23f79-1d2d-4616-86c1-7172ae82b641.jfif",
     "date": "19:42 27/11/24"
   },
   {
+    "id": 35,
     "content": [
       "Ser el músico más influyente no significa nada... es muy relativo. A nadie le puede molestar que digan eso, también yo pienso, bueno, demostrámelo... Cuando hay gente que de golpe tenía como un concepto así \"Almendriano\" y empezó con eso y ahora hace... (Spinetta realiza con sus manos un gesto de guitarra y emite la onomatopeya chicu chicu)... es una cumbia... no sé, mucho no me debe escuchar, aflojó un poquito su entereza, se garcó y empezó a hacer otras cosas que no tienen el mismo calibre y ni piensa ni remotamente parecido a aquel que lo influyó, en este caso yo. La verdad es que no se nota que haya sido el más influyente... no me molestaría ser el menos influyente, porque son cosas para dorar la píldora y ya el hombre ya está más tranquilo.",
       "Tkm, Flaco"
@@ -255,13 +314,17 @@
     "date": "10:41 26/11/24"
   },
   {
+    "id": 36,
     "content": [
       "Sus frágiles pies pisan con seguridad el verde y delicado pasto, el cual emana una extraña sensación fria. Este verde prado no tiene malezas ni insectos, parece estar completamente limpio, como si alguien se hubiera tomado el trabajo de hacer su camino y estadía mucho más llevadero."
     ],
     "date": "01:27 26/11/24"
   },
   {
-    "content": ["estoy laburando, pelotudo"],
+    "id": 37,
+    "content": [
+      "estoy laburando, pelotudo"
+    ],
     "date": "00:00 20/11/24"
   }
 ]

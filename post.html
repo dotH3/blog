@@ -1,0 +1,57 @@
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="./src/style.css">
+    <!---->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Coral+Pixels&display=swap" rel="stylesheet">
+</head>
+
+<div class="flex justify-center">
+    <article class="p-2 sm:w-3/4 md:w-1/2 coral-pixels-regular">
+        <a href="./index.html" class="text-xl hover:underline">volver</a>
+        <h1 id="title" class="text-xl mt-4"></h1>
+        <section id="container" class="flex flex-col gap-2 text-lg"></section>
+    </article>
+</div>
+
+<script type="module">
+  const jsonFile = await fetch('./src/posts.json')
+  const posts = await jsonFile.json()
+  const slug = new URLSearchParams(location.search).get('slug');
+  const post = posts.find(p => p.id == slug)
+
+  const visited = JSON.parse(localStorage.getItem('visitedPosts') || '[]')
+  if (!visited.includes(post.id)) {
+    visited.push(post.id)
+    localStorage.setItem('visitedPosts', JSON.stringify(visited))
+  }
+
+  const title = document.getElementById('title')
+  const container = document.getElementById('container')
+
+  title.innerText = post.date
+
+  post.content.forEach((p) => {
+    const pElement = document.createElement("p")
+    pElement.innerText = p
+    container.appendChild(pElement)
+  });
+
+  if (post.img) {
+    const img = document.createElement("img")
+    img.src = `./${post.img}`
+    img.alt = post.date
+    img.loading = "lazy"
+    img.className = "max-w-full rounded mt-2"
+    container.appendChild(img)
+  }
+
+  if (post.video) {
+    const video = document.createElement("video")
+    video.src = `./${post.video}`
+    video.controls = true
+    video.className = "max-w-full rounded mt-2"
+    container.appendChild(video)
+  }
+</script>
