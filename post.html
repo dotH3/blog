@@ -1,19 +1,53 @@
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="./src/assets/vendor/jsmediatags.min.js"></script>
     <link rel="stylesheet" href="./src/style.css">
     <!---->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Coral+Pixels&display=swap" rel="stylesheet">
+    <style>
+        /* El <audio> nunca se ve: play/pause se maneja clickeando la portada. */
+        .song-player audio { display: none; }
+        .sp-cover-wrap { cursor: pointer; position: relative; }
+        .sp-play-ind {
+            position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.35); color: #fff; opacity: 0; border-radius: 0.25rem;
+            transition: opacity .15s;
+        }
+        .sp-cover-wrap:hover .sp-play-ind { opacity: 1; }
+        /* Touch (mobile): no hay hover, dejar el indicador play/pause siempre visible. */
+        @media (hover: none) {
+            .sp-play-ind { opacity: 1; background: rgba(0,0,0,0.25); }
+        }
+        /* Tailwind preflight pone margin:0 en todo -> mata el margin:auto que
+           centra el <dialog>. Lo re-centramos a mano. */
+        #key-modal { margin: auto; }
+    </style>
 </head>
 
 <div class="flex justify-center">
-    <article class="p-4 w-full sm:w-3/4 md:w-1/2 coral-pixels-regular">
+    <article class="p-4 w-full md:w-1/2 coral-pixels-regular">
         <a href="./index.html" class="text-xl hover:underline">volver</a>
         <h1 id="title" class="text-xl mt-4"></h1>
         <section id="container" class="flex flex-col gap-2 text-lg"></section>
     </article>
 </div>
+
+<!-- Modal de key: decrypt_music.js espera estos selectores (#key-modal, .sp-unlock, .sp-key, etc.) -->
+<dialog id="key-modal" class="p-4 border-2 border-black rounded coral-pixels-regular backdrop:bg-black/50">
+    <form class="sp-unlock flex flex-col gap-2" method="dialog" autocomplete="off">
+        <div class="sp-unlock-title text-lg"></div>
+        <input class="sp-key border border-black rounded px-2 py-1" type="text" placeholder="key" />
+        <div class="sp-unlock-actions flex gap-2">
+            <button type="submit" class="sp-unlock-go border border-black rounded px-2 hover:underline">disfrutar</button>
+            <button type="button" class="sp-unlock-cancel border border-black rounded px-2 hover:underline">?</button>
+        </div>
+        <span class="sp-unlock-status"></span>
+    </form>
+</dialog>
 
 <script type="module">
   const jsonFile = await fetch('./src/posts.json')
@@ -54,4 +88,84 @@
     video.className = "max-w-full rounded mt-2"
     container.appendChild(video)
   }
+
+  if (post.audio || post.song) {
+    const audio = document.createElement("audio")
+    audio.src = `./${post.audio || post.song}`
+    audio.controls = true
+    audio.className = "w-full mt-2"
+    container.appendChild(audio)
+  }
+
+  if (post.songEnc) {
+    const player = document.createElement("div")
+    player.className = "song-player locked mt-2"
+    player.dataset.content = post.content.join(' ')
+    player.innerHTML = `
+      <div class="flex items-center gap-2 min-w-0">
+        <div class="sp-cover-wrap shrink-0 w-14 h-14 rounded flex items-center justify-center bg-black/10">
+          <img class="sp-cover w-14 h-14 rounded hidden" alt="portada" />
+          <span class="sp-cover-ph"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-label="encriptado"><path d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm0 2a3 3 0 0 1 3 3v3H9V7a3 3 0 0 1 3-3z"/></svg></span>
+          <span class="sp-play-ind">▶</span>
+        </div>
+        <span class="sp-name min-w-0 truncate">${post.songEnc.split('/').pop()}</span>
+      </div>
+      <audio data-enc="./${post.songEnc}" preload="none"></audio>`
+
+    const audio = player.querySelector("audio")
+    const playInd = player.querySelector(".sp-play-ind")
+    player.querySelector(".sp-cover-wrap").addEventListener("click", () => {
+      if (player.classList.contains("locked")) {
+        window.openKeyModal(player)
+        return
+      }
+      if (audio.paused) audio.play(); else audio.pause()
+    })
+    audio.addEventListener("play", () => playInd.textContent = "⏸")
+    audio.addEventListener("pause", () => playInd.textContent = "▶")
+    audio.addEventListener("ended", () => playInd.textContent = "▶")
+
+    container.appendChild(player)
+  }
+
+  // Lee el ID3 del audio ya desbloqueado: "artista – título" + portada.
+  // decrypt_music.js la llama después de un unlock exitoso.
+  function loadSongMetadata() {
+    if (!window.jsmediatags) return
+    document.querySelectorAll(".song-player").forEach((player) => {
+      const audio = player.querySelector("audio")
+      // Saltea las encriptadas todavía bloqueadas (sin src real aún).
+      if (!audio || audio.dataset.enc || !audio.src) return
+      const nameEl = player.querySelector(".sp-name")
+      const cover = player.querySelector(".sp-cover")
+      fetch(audio.src)
+        .then((res) => res.blob())
+        .then((blob) => {
+          jsmediatags.read(blob, {
+            onSuccess: ({ tags }) => {
+              const label = [tags.artist, tags.title]
+                .map((s) => (s || "").trim()).filter(Boolean).join(" – ")
+              if (label && nameEl) {
+                nameEl.textContent = label
+                audio.dataset.title = label
+              }
+              const pic = tags.picture
+              if (pic && pic.data && pic.data.length && cover) {
+                let bin = ""
+                for (let i = 0; i < pic.data.length; i++) bin += String.fromCharCode(pic.data[i])
+                cover.src = `data:${pic.format};base64,${btoa(bin)}`
+                cover.classList.remove("hidden")
+                const ph = player.querySelector(".sp-cover-ph")
+                if (ph) ph.classList.add("hidden")
+              }
+            },
+            onError: (err) => console.error("[meta] jsmediatags falló", err),
+          })
+        })
+        .catch((err) => console.error("[meta] no se pudo leer el audio", err))
+    })
+  }
+  window.loadSongMetadata = loadSongMetadata
 </script>
+
+<script src="./src/assets/audios/decrypt_music.js"></script>
