@@ -16,3 +16,20 @@ a.visited {
   text-decoration: line-through;
   text-decoration-color: #ff0000;
 }
+
+/* El <audio> nunca se ve: play/pause se maneja clickeando la portada. */
+.song-player audio { display: none; }
+.sp-cover-wrap { cursor: pointer; position: relative; }
+.sp-play-ind {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.35); color: #fff; opacity: 0; border-radius: 0.25rem;
+  transition: opacity .15s;
+}
+.sp-cover-wrap:hover .sp-play-ind { opacity: 1; }
+/* Touch (mobile): no hay hover, dejar el indicador play/pause siempre visible. */
+@media (hover: none) {
+  .sp-play-ind { opacity: 1; background: rgba(0,0,0,0.25); }
+}
+/* Tailwind preflight pone margin:0 en todo -> mata el margin:auto que
+   centra el <dialog>. Lo re-centramos a mano. */
+#key-modal { margin: auto; }
