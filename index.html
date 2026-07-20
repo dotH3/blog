@@ -2,6 +2,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="./src/assets/vendor/jsmediatags.min.js"></script>
     <link rel="stylesheet" href="./src/style.css">
     <!---->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,13 +11,29 @@
 </head>
 
 <div class="flex justify-center">
-    <main class="p-4 w-full coral-pixels-regular">
+    <main class="p-4 w-full md:w-1/2 coral-pixels-regular">
         <h1 class="text-3xl mb-6">blog</h1>
-        <ul id="container" class="flex flex-col gap-3 text-xl"></ul>
+        <div id="container" class="flex flex-col gap-10"></div>
     </main>
 </div>
 
+<!-- Modal de key: decrypt_music.js espera estos selectores (#key-modal, .sp-unlock, .sp-key, etc.) -->
+<dialog id="key-modal" class="p-4 border-2 border-black rounded coral-pixels-regular backdrop:bg-black/50">
+    <form class="sp-unlock flex flex-col gap-2" method="dialog" autocomplete="off">
+        <div class="sp-unlock-title text-lg"></div>
+        <input class="sp-key border border-black rounded px-2 py-1" type="text" placeholder="key" />
+        <div class="sp-unlock-actions flex gap-2">
+            <button type="submit" class="sp-unlock-go border border-black rounded px-2 hover:underline">disfrutar</button>
+            <button type="button" class="sp-unlock-cancel border border-black rounded px-2 hover:underline">?</button>
+        </div>
+        <span class="sp-unlock-status"></span>
+    </form>
+</dialog>
+
 <script type="module">
+  import { renderPostContent, loadSongMetadata } from './src/render_post.js'
+  window.loadSongMetadata = loadSongMetadata
+
   const jsonFile = await fetch('./src/posts.json')
   const posts = await jsonFile.json()
 
@@ -27,14 +44,21 @@
   posts
     .filter(post => !post.hidden)
     .forEach(post => {
-      const postElement = document.createElement('li')
+      const article = document.createElement('article')
+      article.className = 'flex flex-col gap-2 text-lg'
+
+      // La fecha sigue siendo el permalink al post individual.
+      const heading = document.createElement('h2')
       const link = document.createElement('a')
       link.href = `./post.html?slug=${post.id}`
       link.innerText = post.date
-      link.className = 'hover:underline'
+      link.className = 'text-xl hover:underline'
       if (visited.includes(post.id)) link.classList.add('visited')
-      postElement.appendChild(link)
-      container.appendChild(postElement)
+      heading.appendChild(link)
+      article.appendChild(heading)
+
+      renderPostContent(post, article)
+      container.appendChild(article)
     });
 
   // restaurar scroll al volver
@@ -45,3 +69,5 @@
     sessionStorage.setItem('indexScroll', window.scrollY)
   })
 </script>
+
+<script src="./src/assets/audios/decrypt_music.js"></script>
