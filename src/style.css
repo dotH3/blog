@@ -11,6 +11,14 @@ body {
   background-size: 20px 20px;
 }
 
+/* Sin scroll horizontal en mobile. Estos límites viven acá (no en clases de
+   Tailwind) para que sigan valiendo aunque el CDN de Tailwind tarde o falle
+   en cargar: si no cargara, una imagen a tamaño natural rompía el ancho. */
+img, video, audio, iframe { max-width: 100%; }
+img, video { height: auto; }
+/* Palabras/URLs largas sin espacios no deben empujar el ancho del layout. */
+p { overflow-wrap: break-word; }
+
 a.visited {
   color: #9ca3af;
   text-decoration: line-through;
