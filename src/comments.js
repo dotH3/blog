@@ -20,6 +20,8 @@ function formatDate(raw) {
 
 // Render seguro: SIEMPRE con textContent (nunca innerHTML) porque el contenido
 // viene de gente desconocida -> evita XSS almacenado.
+// Cada comentario es una línea de chat ("nombre: mensaje"), del más viejo al
+// más nuevo, para que el último quede abajo como en un chat de stream.
 function renderComments(listEl, comments) {
   listEl.textContent = ""
 
@@ -31,32 +33,26 @@ function renderComments(listEl, comments) {
     return
   }
 
-  for (const c of comments) {
-    const item = document.createElement("div")
-    item.className = "border-t border-black/20 pt-3"
+  const ordered = [...comments].sort(
+    (a, b) => String(a.created_at).localeCompare(String(b.created_at))
+  )
 
-    const head = document.createElement("div")
-    head.className = "flex flex-wrap items-baseline gap-x-2"
+  for (const c of ordered) {
+    const line = document.createElement("p")
+    line.className = "chat-line whitespace-pre-wrap"
+    // La fecha completa queda en el tooltip para no ensuciar la línea.
+    line.title = formatDate(c.created_at)
 
     const author = document.createElement("span")
-    author.className = "font-bold"
+    author.className = "chat-user text-[#ff0000] uppercase"
     author.textContent = c.username
 
-    const date = document.createElement("span")
-    date.className = "text-sm text-gray-400"
-    date.textContent = formatDate(c.created_at)
-
-    head.appendChild(author)
-    head.appendChild(date)
-
-    const msg = document.createElement("p")
-    msg.className = "mt-1 whitespace-pre-wrap break-words"
-    msg.textContent = c.message
-
-    item.appendChild(head)
-    item.appendChild(msg)
-    listEl.appendChild(item)
+    line.appendChild(author)
+    line.appendChild(document.createTextNode(" " + c.message))
+    listEl.appendChild(line)
   }
+
+  listEl.scrollTop = listEl.scrollHeight
 }
 
 // Conecta el <section id="comments"> ya presente en el HTML.
@@ -80,6 +76,16 @@ export function mountComments(root) {
       statusEl.textContent = "no se pudieron cargar los comentarios"
     }
   }
+
+  // Refresco periódico para que el chat se sienta vivo. Se saltea si la pestaña
+  // no está a la vista o si el visitante scrolleó hacia arriba a leer (el
+  // re-render pega el scroll abajo y lo sacaría de donde está mirando).
+  setInterval(() => {
+    if (document.hidden) return
+    const distanciaAlFondo = listEl.scrollHeight - listEl.scrollTop - listEl.clientHeight
+    if (distanciaAlFondo > 40) return
+    loadComments()
+  }, 30000)
 
   formEl.addEventListener("submit", async (e) => {
     e.preventDefault()
