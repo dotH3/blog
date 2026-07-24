@@ -12,7 +12,10 @@
 
 <div class="flex flex-wrap justify-center">
     <main class="p-4 w-full md:w-1/2 coral-pixels-regular">
-        <h1 class="text-3xl mb-6">blog</h1>
+        <div class="flex items-baseline gap-4 mb-6">
+            <h1 class="text-3xl">blog</h1>
+            <a href="./biblioteca.html" class="text-lg hover:underline">biblioteca</a>
+        </div>
         <div id="container" class="flex flex-col gap-10"></div>
     </main>
 
@@ -24,7 +27,7 @@
         <div class="flex items-baseline justify-between shrink-0">
             <h2 class="text-xl">comentarios</h2>
             <button id="comments-close" type="button" aria-label="cerrar comentarios"
-                class="md:hidden border border-black rounded px-2 leading-none py-1">x</button>
+                class="border border-black rounded px-2 leading-none py-1">x</button>
         </div>
         <div id="comment-list" class="flex flex-col gap-1 text-base"></div>
         <form id="comment-form" class="flex flex-col gap-1 shrink-0" autocomplete="off">
@@ -43,7 +46,7 @@
 <!-- Solo mobile: botón flotante que abre el modal de comentarios. En desktop
      no hace falta porque el chat ya está fijo en el margen derecho. -->
 <button id="comments-open" type="button"
-    class="md:hidden fixed bottom-4 right-4 z-40 border-2 border-black rounded-full bg-white px-4 py-2 text-lg coral-pixels-regular shadow-md">
+    class="fixed bottom-4 right-4 z-40 border-2 border-black rounded-full bg-white px-4 py-2 text-lg coral-pixels-regular shadow-md">
     comentarios
 </button>
 <div id="comments-backdrop" class="fixed inset-0 z-30 bg-black/50 hidden"></div>

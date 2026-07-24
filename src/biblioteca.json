@@ -1,0 +1,16 @@
+[
+  {
+    "titulo": "La señorita Cora",
+    "autor": "Julio Cortázar",
+    "anio": 1966,
+    "sinopsis": "«La señorita Cora», cuento de Julio Cortázar publicado en la colección Todos los fuegos el fuego (1966), narra la historia de Pablo, un adolescente que ingresa al hospital para una operación de apendicitis. Allí conoce a Cora, una joven enfermera por quien Pablo siente una atracción inmediata.  Escrito desde múltiples perspectivas, el relato se despliega como un mosaico de emociones, revelando los pensamientos y sentimientos de los distintos personajes, lo que ofrece al lector una visión más amplia y compleja para comprender la trama conforme esta se desarrolla.",
+    "pdf": "src/libros/la-senorita-cora.pdf"
+  },
+  {
+    "titulo": "La salud de los enfermos",
+    "autor": "Julio Cortázar",
+    "anio": 1966,
+    "sinopsis": "«La salud de los enfermos» es un cuento de Julio Cortázar publicado en 1966 en el libro Todos los fuegos el fuego. La historia se centra en una familia que, con infinita dedicación y cuidado, protege a una madre enferma de cualquier sobresalto emocional. Para evitarle sufrimientos, los hijos y parientes mantienen una elaborada farsa cotidiana, ocultándole verdades dolorosas mediante cartas inventadas, visitas cuidadosamente planificadas y noticias manipuladas. En medio de esta red de afectuosos engaños, los personajes se enfrentan a las tensiones que genera mantener una mentira colectiva con amor, temor y resignación.",
+    "pdf": "src/libros/la-salud-de-los-enfermos.pdf"
+  }
+]

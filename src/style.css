@@ -25,51 +25,24 @@ a.visited {
   text-decoration-color: #ff0000;
 }
 
-/* Comentarios con forma de chat de stream. En mobile son un bloque normal al
-   final de la página; a partir de md se despegan del flujo y quedan fijos en
-   el margen derecho, con los mensajes nuevos pegados abajo (como un chat). */
-/* Mobile: el panel es un modal que sale de abajo con el botón flotante.
+/* Comentarios con forma de chat de stream, siempre como modal que sale de
+   abajo con el botón flotante (mismo comportamiento en mobile y desktop).
    Oculto por defecto; .comments-open en el <body> lo muestra. */
-@media (max-width: 767px) {
-  .comments-gutter {
-    position: fixed;
-    z-index: 40;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    max-height: 80vh;
-    background-color: #ffffff;
-    border-top: 1px solid rgba(0, 0, 0, 0.2);
-    transform: translateY(100%);
-    transition: transform 0.2s ease-out;
-  }
-  body.comments-open .comments-gutter { transform: none; }
-  body:not(.comments-open) .comments-gutter { visibility: hidden; }
-  #comment-list { overflow-y: auto; }
+.comments-gutter {
+  position: fixed;
+  z-index: 40;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: 80vh;
+  background-color: #ffffff;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  transform: translateY(100%);
+  transition: transform 0.2s ease-out;
 }
-
-@media (min-width: 768px) {
-  .comments-gutter {
-    position: fixed;
-    top: 1rem;
-    bottom: 1rem;
-    right: 1rem;
-    width: min(26rem, 30vw);
-    overflow: hidden;
-  }
-  /* El chat ocupa el alto sobrante y scrollea solo. El texto va pegado a la
-     derecha: el borde derecho queda parejo contra el margen de la pantalla y
-     el izquierdo desparejo, corrido según el largo de cada mensaje. */
-  #comment-list {
-    flex: 1 1 auto;
-    min-height: 0;
-    overflow-y: auto;
-    text-align: right;
-  }
-  /* Truco de chat: con pocos mensajes igual quedan pegados al fondo, y con
-     muchos el scroll sigue funcionando (justify-content: flex-end lo rompe). */
-  #comment-list > :first-child { margin-top: auto; }
-}
+body.comments-open .comments-gutter { transform: none; }
+body:not(.comments-open) .comments-gutter { visibility: hidden; }
+#comment-list { overflow-y: auto; }
 
 /* Cada mensaje: "nombre: texto" en una sola tirada, como un chat. */
 .chat-line { overflow-wrap: break-word; }
@@ -92,3 +65,150 @@ a.visited {
 /* Tailwind preflight pone margin:0 en todo -> mata el margin:auto que
    centra el <dialog>. Lo re-centramos a mano. */
 #key-modal { margin: auto; }
+
+/* Biblioteca: estantería de lomos de libro dentro de un mueble de madera
+   (bordes laterales + tabla inferior). El lomo "se saca" al hacer hover o al
+   quedar abierto (translateY + rotación leve) y al click se llena la tarjeta
+   de detalle única que vive debajo del mueble. */
+.bookcase {
+  --wood: #b45309;
+  border: 14px solid var(--wood);
+  border-top: 0;
+  border-radius: 0 0 0.25rem 0.25rem;
+  background-color: rgba(180, 83, 9, 0.07);
+  /* Línea oscura entre la madera y el interior (solo lados con madera: el
+     techo queda abierto) + veta inferior de la tabla. */
+  box-shadow:
+    inset 2px 0 0 rgba(0, 0, 0, 0.35),
+    inset -2px 0 0 rgba(0, 0, 0, 0.35),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.35),
+    0 4px 0 rgba(0, 0, 0, 0.2);
+}
+.shelf {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.4rem;
+  padding: 1.5rem 0.75rem 0;
+}
+.book-spine {
+  /* Los lomos (y la mini portada) van en serif de libro, no en la fuente
+     pixel del blog: en vertical y chiquita se lee mucho mejor. */
+  font-family: "Alegreya", Georgia, serif;
+  font-weight: 500;
+  /* Ancho/alto de referencia: render_biblioteca.js los varía por libro.
+     El alto es MÍNIMO: un título largo estira el lomo a lo largo en vez de
+     desbordar hacia los costados. */
+  width: 2.75rem;
+  min-height: 11rem;
+  border: 2px solid #1f2937;
+  border-radius: 0.15rem;
+  color: #fff;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  /* Bandas decorativas cerca de ambos extremos del lomo. El color base viene
+     por style inline (longhand: no pisa estas imágenes). */
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.28)),
+    linear-gradient(rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.28));
+  background-size: 100% 5px;
+  background-position: 0 9px, 0 calc(100% - 9px);
+  background-repeat: no-repeat;
+  /* Curvatura del lomo: luz de un lado, sombra del otro. */
+  box-shadow:
+    inset 2px 0 0 rgba(255, 255, 255, 0.15),
+    inset -2px 0 0 rgba(0, 0, 0, 0.3);
+}
+/* nowrap: el texto corre en UNA línea a lo largo del lomo (como lomo real).
+   Sin esto, un título largo envuelve en columnas que se salen del ancho. */
+.book-spine-title { font-size: 1.15rem; font-weight: 700; letter-spacing: 0.02em; white-space: nowrap; }
+.book-spine-author { font-size: 0.9rem; opacity: 0.85; white-space: nowrap; }
+/* vertical-rl gira el glifo 90° y el rotate(180deg) del lomo suma 270°:
+   este rotate(90deg) cierra la vuelta para que la flecha apunte abajo. */
+.book-spine-dl {
+  opacity: 0;
+  transition: opacity 0.15s;
+  display: inline-block;
+  transform: rotate(90deg);
+}
+/* rotate(180deg) ya invirtió el eje: hay que subir con translateY negativo
+   en coordenadas del elemento rotado, que visualmente "saca" el libro hacia
+   arriba del estante. */
+.book-spine:hover,
+.book-spine[aria-expanded="true"] {
+  transform: rotate(180deg) translateY(-14px) rotate(-3deg);
+  box-shadow:
+    2px 4px 8px rgba(0, 0, 0, 0.35),
+    inset 2px 0 0 rgba(255, 255, 255, 0.15),
+    inset -2px 0 0 rgba(0, 0, 0, 0.3);
+}
+.book-spine:hover .book-spine-dl,
+.book-spine[aria-expanded="true"] .book-spine-dl { opacity: 1; }
+/* Borde punteado: en focus de teclado y también en el libro seleccionado, así
+   aparece al instante al hacer click (sin depender de la heurística de
+   :focus-visible, que con mouse a veces no dispara). */
+.book-spine:focus-visible,
+.book-spine[aria-expanded="true"] {
+  outline: 2px dashed #1f2937;
+  outline-offset: 3px;
+}
+/* Touch (mobile): no hay hover, dejar el indicador de descarga siempre visible. */
+@media (hover: none) {
+  .book-spine-dl { opacity: 1; }
+}
+/* Adorno al final del estante. */
+.shelf-decor {
+  font-size: 1.6rem;
+  line-height: 1;
+  padding-bottom: 0.1rem;
+  user-select: none;
+}
+.book-card {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  border: 2px solid #1f2937;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  background-color: #ffffff;
+  max-width: 32rem;
+  /* Sombra dura, a tono con el estilo pixel. */
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.15);
+}
+/* En pantallas chicas la fila apreta demasiado el texto: apilamos la portada
+   arriba y la ficha abajo, a lo ancho completo. */
+@media (max-width: 480px) {
+  .book-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+/* display:flex de arriba no debe ganarle al .hidden de Tailwind. */
+.book-card.hidden { display: none; }
+/* Mini portada plana del color del lomo, con franja de encuadernado. */
+.book-cover {
+  font-family: "Alegreya", Georgia, serif;
+  font-weight: 700;
+  flex: none;
+  width: 4.5rem;
+  height: 6.5rem;
+  border: 2px solid #1f2937;
+  border-radius: 0.15rem;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.25rem 0.25rem 0.25rem 0.6rem;
+  font-size: 0.7rem;
+  overflow-wrap: anywhere;
+  box-shadow: inset 8px 0 0 rgba(0, 0, 0, 0.25);
+}
