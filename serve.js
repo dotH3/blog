@@ -53,7 +53,25 @@ Bun.serve({
       const html = (await f.text()) + RELOAD_SNIPPET;
       return new Response(html, { headers: { "content-type": "text/html" } });
     }
-    return new Response(f, { headers: { "content-type": MIME[ext] || "application/octet-stream" } });
+
+    const contentType = MIME[ext] || "application/octet-stream";
+    const range = req.headers.get("range");
+    if (range) {
+      const size = f.size;
+      const match = /bytes=(\d*)-(\d*)/.exec(range);
+      const start = match[1] ? parseInt(match[1], 10) : 0;
+      const end = match[2] ? parseInt(match[2], 10) : size - 1;
+      return new Response(f.slice(start, end + 1), {
+        status: 206,
+        headers: {
+          "content-type": contentType,
+          "content-range": `bytes ${start}-${end}/${size}`,
+          "accept-ranges": "bytes",
+          "content-length": String(end - start + 1),
+        },
+      });
+    }
+    return new Response(f, { headers: { "content-type": contentType, "accept-ranges": "bytes" } });
   },
 });
 console.log("blog -> http://localhost:8000 (live-reload on)");
