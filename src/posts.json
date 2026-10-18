@@ -1,39 +1,39 @@
 [
   {
-  "id": 50,
-  "date": "00:00 14/10/26",
-  "content": [
-    "Mirando el lago de una ciudad de la que viví mis primeros meses de responsabilidad puedo preguntarme ¿Y yo para qué quiero un pedazo de tierra? ¿Para caerme muerto y podrido de pobreza?",
-    "Prefiero tener un pedazo de aire, gracias."
-  ]
-},
-{
-  "id": 49,
-  "date": "09:47 27/09/26",
-  "content": [
-    "https://youtu.be/JiykF2FZpWs?si=NE1hRq11GAzysPPa"
-  ]
-},
-{
-  "id": 48,
-  "date": "00:00 07/09/26",
-  "content": [
-    "la chica asiatica que me atiende en el mercado es super linda"
-  ]
-},
-{
-  "id": 47,
-  "date": "15:32 18/08/26",
-  "content": [
-    "Vas aquí, vas allá. Pero nunca te encontrarás al escaparte",
-    "No hay pociones para el amor ¿Dónde estás? ¿Dónde voy?",
-    "Porque estamos en la calle de la sensación, muy lejos del sol que quema de amor",
-    "Te doy pan, quieres sal. Nena, nunca te voy a dar lo que me pides",
-    "Te doy Dios, quieres más ¿Es que nunca comprenderás a un pobre pibe?",
-    "Esas motos que van a mil solo el viento te hará sentir. Nada más, nada más",
-    "Si pudieras olvidar tu mente frente a mí, sé que tu corazón diría que sí."
-  ]
-},
+    "id": 50,
+    "date": "00:00 14/10/26",
+    "content": [
+      "Mirando el lago de una ciudad de la que viví mis primeros meses de responsabilidad puedo preguntarme ¿Y yo para qué quiero un pedazo de tierra? ¿Para caerme muerto y podrido de pobreza?",
+      "Prefiero tener un pedazo de aire, gracias."
+    ]
+  },
+  {
+    "id": 49,
+    "date": "09:47 27/09/26",
+    "content": [
+      "https://youtu.be/JiykF2FZpWs?si=NE1hRq11GAzysPPa"
+    ]
+  },
+  {
+    "id": 48,
+    "date": "00:00 07/09/26",
+    "content": [
+      "la chica asiatica que me atiende en el mercado es super linda"
+    ]
+  },
+  {
+    "id": 47,
+    "date": "15:32 18/08/26",
+    "content": [
+      "Vas aquí, vas allá. Pero nunca te encontrarás al escaparte",
+      "No hay pociones para el amor ¿Dónde estás? ¿Dónde voy?",
+      "Porque estamos en la calle de la sensación, muy lejos del sol que quema de amor",
+      "Te doy pan, quieres sal. Nena, nunca te voy a dar lo que me pides",
+      "Te doy Dios, quieres más ¿Es que nunca comprenderás a un pobre pibe?",
+      "Esas motos que van a mil solo el viento te hará sentir. Nada más, nada más",
+      "Si pudieras olvidar tu mente frente a mí, sé que tu corazón diría que sí."
+    ]
+  },
   {
     "id": 46,
     "date": "12:00 16/08/26",
@@ -45,24 +45,26 @@
   {
     "id": 45,
     "date": "03:19 29/07/26",
-    "content":["Aún es un trabajo en proceso, pero qué bien se ve."],
+    "content": [
+      "Aún es un trabajo en proceso, pero qué bien se ve."
+    ],
     "video": "src/assets/videos/2026-07-29 03-17-31.mp4"
   },
   {
     "id": 44,
     "date": "17:30 28/07/2026",
     "content": [
-        "Paredes de cartón-piedra, un lujo",
-        "Y el milagro sensual",
-        "De mujeres fantasmas gringas",
-        "Y morenas joyón",
-        "",
-        "Botellas de Johnnie rojo",
-        "De Johnnie negro y ron",
-        "Y de cachaça, doncella loca",
-        "Que calma tu dolor"
-      ]
-    },
+      "Paredes de cartón-piedra, un lujo",
+      "Y el milagro sensual",
+      "De mujeres fantasmas gringas",
+      "Y morenas joyón",
+      "",
+      "Botellas de Johnnie rojo",
+      "De Johnnie negro y ron",
+      "Y de cachaça, doncella loca",
+      "Que calma tu dolor"
+    ]
+  },
   {
     "id": 43,
     "date": "23:19 25/07/2026",
@@ -82,7 +84,7 @@
   {
     "id": 41,
     "date": "01:20 24/07/26",
-    "content":[
+    "content": [
       "Extracto de “Señorita Cora” de Cortázar",
       "No entiendo por qué no me dejaron pasar la noche en la clínica con el nene, al fin y al cabo soy su madre y el doctor De Luisi nos recomendó personalmente al director",
       "Qué joven es, clavado que no tiene ni diecinueve años, debe haberse recibido de enfermera hace muy poco",
@@ -100,7 +102,10 @@
   {
     "id": 39,
     "date": "02:01 22/07/26",
-    "content": ["Linux Antiquity", "https://github.com/diinki/linux-antiquity"]
+    "content": [
+      "Linux Antiquity",
+      "https://github.com/diinki/linux-antiquity"
+    ]
   },
   {
     "id": 38,
@@ -134,7 +139,9 @@
   },
   {
     "id": 3,
-    "content": ["Me estremece reparar cuentos enredados de extraños sabores."],
+    "content": [
+      "Me estremece reparar cuentos enredados de extraños sabores."
+    ],
     "songEnc": "src/assets/audios/ed006cb213ae780c1a957f8f96e2bf81.enc",
     "date": "00:00 16/06/26"
   },
@@ -146,7 +153,9 @@
   },
   {
     "id": 5,
-    "content": ["Suelto otro llanto oxidado."],
+    "content": [
+      "Suelto otro llanto oxidado."
+    ],
     "songEnc": "src/assets/audios/aeec1a500f0223de288e3fd57e4f9d30.enc",
     "date": "00:00 07/06/26"
   },
@@ -183,7 +192,9 @@
   },
   {
     "id": 10,
-    "content": ["jodidamente tierno"],
+    "content": [
+      "jodidamente tierno"
+    ],
     "img": "src/assets/imgs/20260302_015614.jpg",
     "date": "01:59 02/03/26"
   },
@@ -215,7 +226,9 @@
   },
   {
     "id": 13,
-    "content": ["soy grande miren"],
+    "content": [
+      "soy grande miren"
+    ],
     "date": "22:00 05/02/26",
     "video": "src/assets/videos/2026-02-05_compressed.mp4",
     "hidden": true
@@ -247,7 +260,9 @@
   },
   {
     "id": 17,
-    "content": ["Ya le estoy agarrando la mano al 2024"],
+    "content": [
+      "Ya le estoy agarrando la mano al 2024"
+    ],
     "date": "05:59 30/12/25"
   },
   {
@@ -296,7 +311,9 @@
   },
   {
     "id": 22,
-    "content": ["Mi vieja me dio la vida, Ecomenu las ganas de vivirla"],
+    "content": [
+      "Mi vieja me dio la vida, Ecomenu las ganas de vivirla"
+    ],
     "img": "src/assets/imgs/20250418_171646.jpg",
     "date": "00:05 19/04/25"
   },
@@ -312,12 +329,16 @@
   },
   {
     "id": 24,
-    "content": ["no sé si estoy para esta, mepa que me bajo"],
+    "content": [
+      "no sé si estoy para esta, mepa que me bajo"
+    ],
     "date": "00:39 15/03/2025"
   },
   {
     "id": 25,
-    "content": ["código fuente de Floyd https://github.com/dotH3/ping_floyd"],
+    "content": [
+      "código fuente de Floyd https://github.com/dotH3/ping_floyd"
+    ],
     "date": "18:03 04/03/25"
   },
   {
@@ -341,19 +362,25 @@
   },
   {
     "id": 28,
-    "content": ["mejor_reproductor_de_la_galaxia.png"],
+    "content": [
+      "mejor_reproductor_de_la_galaxia.png"
+    ],
     "img": "src/assets/imgs/mejor_reproductor_de_la_galaxia.png",
     "date": "23:18 08/01/25"
   },
   {
     "id": 29,
-    "content": ["Gato con cara de boludo"],
+    "content": [
+      "Gato con cara de boludo"
+    ],
     "video": "src/assets/videos/pedro_cat.mp4",
     "date": "09:09 30/12/24"
   },
   {
     "id": 30,
-    "content": ["Alguien que me lleve a un recital de Luimi"],
+    "content": [
+      "Alguien que me lleve a un recital de Luimi"
+    ],
     "video": "src/assets/videos/luismi.mp4",
     "date": "09:04 28/12/24"
   },
@@ -386,7 +413,9 @@
   },
   {
     "id": 34,
-    "content": ["hoy instalé ubuntu 19 en un dinosaurio"],
+    "content": [
+      "hoy instalé ubuntu 19 en un dinosaurio"
+    ],
     "img": "src/assets/imgs/67e23f79-1d2d-4616-86c1-7172ae82b641.jfif",
     "date": "19:42 27/11/24"
   },
@@ -407,7 +436,9 @@
   },
   {
     "id": 37,
-    "content": ["estoy laburando, pelotudo"],
+    "content": [
+      "estoy laburando, pelotudo"
+    ],
     "date": "00:00 20/11/24"
   }
 ]
